@@ -15,7 +15,7 @@ Make sure to check the `Download as an audio file (mp3)?` checkbox if you want t
 ### NOTE: This program automaticly downloads your videos/audio in the highest quaily possible.
 <img width="1280" alt="isAudio" src="https://user-images.githubusercontent.com/60891047/223450571-980eaabb-921a-42cb-ae5b-3e2cf1be88f9.png">
 
-Now choose a file path for your file to be saved. You can leave this option blank and the program will automatically download to `Videos\YT Download` folder*. The `Videos` folder is a defualt folder in the Windows OS.
+Now choose a file path for your file to be saved. You can leave this option blank and the program will automatically download to `Documents\YT Download` folder*. The `Documents` folder is a defualt folder in the Windows OS.
 
 *This feture is comming in 1.2.0
 <img width="1280" alt="Custom Location" src="https://user-images.githubusercontent.com/60891047/223452224-9922e107-b285-4e46-84ee-d9939135d2b7.png">
