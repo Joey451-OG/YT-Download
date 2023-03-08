@@ -1,56 +1,58 @@
 import PySimpleGUI as sg
-import main as dowloader
+import main as downloader
+import os
 
 sg.theme('DarkAmber') # Color Scheme
+
+user_dir = os.environ['USERPROFILE'] + '\Documents\YT Download'
 
 # GUI layout
 layout = [ [sg.Text("Thank you for using YT Download!")],
            [sg.Text("YouTube URL:"), sg.InputText(key='URL')],
            [sg.Checkbox('Download as an audio file (mp3)?', default=False, key='isAudio')],
-           [sg.Text('File path. Leave blank to save download to program location.')],
+           [sg.Text('File path. Leave blank to save download to:')],
+           [sg.Text(f'{user_dir}')],
            [sg.Input(key='DIR'), sg.FolderBrowse()],
            [sg.Button('Download'), sg.Cancel()]
 
 ]
 
-# Returns 'program directory' if dir is empy, otherwise returns dir
-def format_dir(dir):
-    if dir == '':
-        return 'program directory.'
-    else:
-        return dir
+# Main logic function. Calls the appropriate functions in main.py and handles input errors.
+def GUI_checks(event, audio_val, url_val, dir_val):
+    title = downloader.return_title(url_val)
     
-def incorrect_url_check(title):
-    if title == 'ERROR':
-        sg.popup('INVALID YOUTUBE URL', icon='logo.ico', title='YT Download')
-        return False
+    if dir_val == '':
+        dir_val = user_dir
+    
+    if audio_val:
+        file_type = '.mp3'
     else:
-        return title
+        file_type = '.mp4'
 
-# Main logic loop. Calls the apropriate functions in main.py
+    if event == 'Download':
+        if url_val == '':
+            sg.popup('Please make sure to provide a URL', icon='logo.ico', title='YT Download')
+        else:
+            if title == 'ERROR':
+                sg.popup('INVALID YOUTUBE URL', icon='logo.ico', title='YT Download')
+                title = False
+
+        if title != False and url_val != '':
+            downloader.logic(url_val, audio_val, dir_val)
+            sg.popup(f'Downloaded {title} as a {file_type} file to {dir_val}', icon='logo.ico', title='YT Download')
+
+            
+
+# Main setup loop. Calls GUI_checks()
 window = sg.Window('YT Download', layout, icon='logo.ico')
 while True:
     
     event, values = window.read() # Check the active event and the value dictionary.
     print(event, values) # Print event and values for debuging in the command line.
 
-
     if event == sg.WIN_CLOSED or event == 'Cancel': # Break the loop if the window is closed or the 'Cancel' button is pressed
         break
 
-    if event == 'Download' and values['isAudio'] and values['URL'] != "": # When the 'Download' button is pressed, check to see if the 'isAudio' check box is checked and see if the url feild is not blank.
-        dir = format_dir(values['DIR'])                                   # Then, call format_dir() and fetch the video title. Finially, download the audio and display the popup when done.
-        title = incorrect_url_check(dowloader.return_title(values['URL']))
-        if title != False:
-            dowloader.logic(values['URL'], True, dir)
-            sg.popup(f'Downloaded {title} as a .mp3 file to {dir}', icon='logo.ico', title='YT Download')
-    elif event == 'Download' and not values['isAudio'] and values['URL'] != "": # When the 'Download' button is pressed, check to see if the 'isAudio' check box is not checked and see if the url feild is not blank.
-        dir = format_dir(values['DIR'])                                         # Then, call format_dir() and fetch the video title. Finially, download the video and display the popup when done.
-        title = incorrect_url_check(dowloader.return_title(values['URL']))
-        if title != False:
-            dowloader.logic(values['URL'], False, dir)
-            sg.popup(f'Downloaded {title} as a .mp4 file to {dir}', icon='logo.ico', title='YT Download')
-    elif event == 'Download' and values['URL'] == '':
-        sg.popup('Please make sure to provide a URL', icon='logo.ico', title='YT Download')
+    GUI_checks(event, values['isAudio'], values['URL'], values['DIR'])
 
 window.close() # Kill the program

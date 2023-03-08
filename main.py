@@ -11,9 +11,10 @@ audio_options = {
     'format': 'm4a/bestaudio/best',
     'postprocessors': [{ #FFmpeg Settings see: |yt-dlp/__init__.py --> .postprocessor| for a list of settings.
         'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'mp3',
+        'preferredcodec': 'mp3'
     }]
 }
+
 
 # Handels downlaoding and retriving information
 def YoutubeDownloader(settings, url, isDownload=False):
@@ -32,15 +33,11 @@ def YoutubeDownloader(settings, url, isDownload=False):
             
 
 # Main logic. Sets directory when specified and calls YoutubeDownloader()
-def logic(URL, ISaudio, DIR='skip'):
-    
-    dir = DIR
-
-    if dir == 'skip': # No directory was specified.
-        pass
-    else: # Format both the video and audio options with the specified directory. 
-        audio_options['outtmpl'] = dir + '/%(title)s.%(ext)s'
-        video_options['outtmpl'] = dir + '/%(title)s.%(ext)s'
+def logic(URL, ISaudio, DIR):
+   
+   
+    audio_options['outtmpl'] = DIR + '/%(title)s.%(ext)s'
+    video_options['outtmpl'] = DIR + '/%(title)s.%(ext)s'                
     
     if ISaudio: # Download as audio or video
         YoutubeDownloader(audio_options, URL, True)
