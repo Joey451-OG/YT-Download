@@ -17,29 +17,51 @@ layout = [ [sg.Text("Thank you for using YT Download!")],
 
 ]
 
+playlist_layout = [
+    [sg.Text('You are trying to download a Playlist. Do you want to continue?')],
+    [sg.Button('Yes'), sg.Button('No')]
+]
+
 # Main logic function. Calls the appropriate functions in main.py and handles input errors.
 def GUI_checks(event, audio_val, url_val, dir_val):
-    title = downloader.return_title(url_val)
-    
-    if dir_val == '':
-        dir_val = user_dir
-    
-    if audio_val:
-        file_type = '.mp3'
+    if 'playlist?list=' in url_val:
+        # URL is a playlist
+        '''
+        THIS CODE THROWS AN ERROR. TRY TO FIX
+        '''
+        playlist_window = sg.Window('YT Download', playlist_layout, icon='logo.ico')
+        p_event = playlist_window.read()
+        if p_event[0] == 'YES':
+            print("\n\n\nYES PRINT PLAYLIST\n\n\n")
+            pass
+        elif p_event[0] == 'NO' or p_event == sg.WIN_CLOSED:
+            sg.popup('Not downloading playlist...', icon='logo.ico', title='YT Download')
     else:
-        file_type = '.mp4'
+        # URL is not a playlist
+    
 
-    if event == 'Download':
-        if url_val == '':
-            sg.popup('Please make sure to provide a URL', icon='logo.ico', title='YT Download')
+        title = downloader.return_title(url_val)
+        
+        if dir_val == '':
+            dir_val = user_dir
+        
+        if audio_val:
+            file_type = '.mp3'
         else:
-            if title == 'ERROR':
-                sg.popup('INVALID YOUTUBE URL', icon='logo.ico', title='YT Download')
-                title = False
+            file_type = '.mp4'
 
-        if title != False and url_val != '':
-            downloader.logic(url_val, audio_val, dir_val)
-            sg.popup(f'Downloaded {title} as a {file_type} file to {dir_val}', icon='logo.ico', title='YT Download')
+        if event == 'Download':
+            if url_val == '':
+                sg.popup('Please make sure to provide a URL', icon='logo.ico', title='YT Download')
+            else:
+                if title == 'ERROR':
+                    sg.popup('INVALID YOUTUBE URL', icon='logo.ico', title='YT Download')
+                    title = False
+
+            if title != False and url_val != '':
+                downloader.logic(url_val, audio_val, dir_val)
+                sg.popup(f'Downloaded {title} as a {file_type} file to {dir_val}', icon='logo.ico', title='YT Download')
+            
 
             
 
