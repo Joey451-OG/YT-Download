@@ -91,6 +91,7 @@ while True:
     if event == 'GITHUB':
         web.open("https://github.com/Joey451-OG/YT-Dowload")
 
-    GUI_checks(event, values['isAudio'], values['URL'], values['DIR'])
+    if event == 'Download':
+        GUI_checks(event, values['isAudio'], values['URL'], values['DIR'])
 
 window.close() # Kill the program
