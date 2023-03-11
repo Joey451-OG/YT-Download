@@ -31,7 +31,6 @@ def GUI_checks(event, audio_val, url_val, dir_val):
             p_event, p_val = playlist_window.read()
             print(p_event, p_val)
             if p_event == 'Yes':
-                print("\n\n\nYES PRINT PLAYLIST\n\n\n")
                 playlist_window.close()
                 break
                 
@@ -74,13 +73,10 @@ def GUI_checks(event, audio_val, url_val, dir_val):
                     sg.popup(f'Downloaded {title} as a {file_type} file to {dir_val}', icon='logo.ico', title='YT Download')
             
 
-            
-
 # Main setup loop. Calls GUI_checks()
 window = sg.Window('YT Download', layout, icon='logo.ico')
 while True:
     
-
     playlist_layout = [
         [sg.Text('You are trying to download a Playlist. Do you want to continue?')],
         [sg.Button('Yes'), sg.Button('No')]
