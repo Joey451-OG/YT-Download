@@ -25,9 +25,6 @@ def GUI_checks(event, audio_val, url_val, dir_val):
     
     if 'playlist?list=' in url_val:
         # URL is a playlist
-        '''
-        THIS CODE THROWS AN ERROR. TRY TO FIX
-        '''
         playlist_window = sg.Window('YT Download', playlist_layout, icon='logo.ico')
         
         while True:
