@@ -1,10 +1,13 @@
 import PySimpleGUI as sg
 import main as downloader
+import webbrowser as web
 import os
 
 sg.theme('DarkAmber') # Color Scheme
 
 user_dir = os.environ['USERPROFILE'] + '\Documents\YT Download'
+
+font = (None, 10, 'underline')
 
 # GUI layout
 layout = [ [sg.Text("Thank you for using YT Download!")],
@@ -13,9 +16,9 @@ layout = [ [sg.Text("Thank you for using YT Download!")],
            [sg.Text('File path. Leave blank to save download to:')],
            [sg.Text(f'{user_dir}')],
            [sg.Input(key='DIR'), sg.FolderBrowse()],
-           [sg.Button('Download'), sg.Cancel()]
-
+           [sg.Button('Download'), sg.Cancel(), sg.Text('Version: 1.2.1', tooltip='https://github.com/Joey451-OG/YT-Dowload', enable_events=True, key='GITHUB', font=font)]
     ]
+
 # Main logic function. Calls the appropriate functions in main.py and handles input errors.
 def GUI_checks(event, audio_val, url_val, dir_val):
     download = True
@@ -87,6 +90,9 @@ while True:
 
     if event == sg.WIN_CLOSED or event == 'Cancel': # Break the loop if the window is closed or the 'Cancel' button is pressed
         break
+    
+    if event == 'GITHUB':
+        web.open("https://github.com/Joey451-OG/YT-Dowload")
 
     GUI_checks(event, values['isAudio'], values['URL'], values['DIR'])
 
