@@ -21,7 +21,10 @@ def YoutubeDownloader(settings, url, isDownload=False):
 
     if isDownload: # Downloads the audio or video file
         with YoutubeDL(settings) as ydl:
-            ydl.download(url)
+            try:
+                ydl.download(url)
+            except utils.DownloadError:
+                return 'FFMPEG ERROR'
     else:
         with YoutubeDL() as ydl: # Returns the title of video the url points to. 
             try:
@@ -40,9 +43,9 @@ def logic(URL, ISaudio, DIR):
     video_options['outtmpl'] = DIR + '/%(title)s.%(ext)s'                
     
     if ISaudio: # Download as audio or video
-        YoutubeDownloader(audio_options, URL, True)
+        return YoutubeDownloader(audio_options, URL, True)
     else:
-        YoutubeDownloader(video_options, URL, True)
+        return YoutubeDownloader(video_options, URL, True)
     
 def return_title(url): # Returns the title of video the url points to.
     return YoutubeDownloader(None, url)
