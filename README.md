@@ -16,9 +16,9 @@ Now, simply copy the url of the YouTube video you want to download and paste it 
 
 Make sure to check the `Download as an audio file (mp3)?` checkbox if you want to download as an audio file. For example, this video is an official audio video, so I will be checking this box.
 
-### -------------
-### NOTE: This program automaticly downloads your videos/audio in the highest quaily possible.
-### -------------
+>          
+> **NOTE: This program automaticly downloads your videos/audio in the highest quaily possible.**
+> 
 
 <img width="1280" alt="url" src="https://user-images.githubusercontent.com/60891047/225436855-26570c71-893c-4aed-b572-0587ccc295cf.png">
 
@@ -30,13 +30,12 @@ Next, just click `Download`.
 
 <img width="1280" alt="downloading" src="https://user-images.githubusercontent.com/60891047/225438384-54e39af8-de50-4af3-af46-d25bd1e3c7e6.png">
 
-### -------------
-### Downloading Playlists
-To download a playlist follow all of the above and bellow steps. Just make sure to click `Yes` on the popup. This popup is to warn the user that they are about to download a playlist. When downloading a playlist, YT Download will download all videos in the playlist to your chosen file path and as your chosen file type.
-
-<img width="304" alt="Playlist Warning" src="https://user-images.githubusercontent.com/60891047/225441213-089e396e-b585-4721-8119-e13da2fe3902.png">
-
-### -------------
+> 
+> ### Downloading Playlists
+> To download a playlist follow all of the above and bellow steps. Just make sure to click `Yes` on the popup. This popup is to warn the user that they are about to download a playlist. When downloading a playlist, YT Download will download all videos in the playlist to your chosen file path and as your chosen file type.
+> 
+> <img width="304" alt="Playlist Warning" src="https://user-images.githubusercontent.com/60891047/225441213-089e396e-b585-4721-8119-e13da2fe3902.png">
+> 
 
 Once your file is done downloading, a popup will apear showing the title of the youtube video you downloaded and where on your computer you saved it. (When downloading a playlist, this popup will only appear once the whole playlist is done downloading so please be patient.)
 
