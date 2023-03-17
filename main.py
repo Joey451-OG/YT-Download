@@ -1,3 +1,22 @@
+# LICENSE
+'''
+YT Download. A simple GUI wrapper for yt-dlp.
+    Copyright (C) 2023 Joey451-OG
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+'''
+
 from yt_dlp import YoutubeDL, utils
 
 print('TERMINAL Please keep this window open for YT Download to work.\n') # Only is seen in the Command Line. Anything that prints to the console will only be seen in the command line.
