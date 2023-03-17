@@ -21,10 +21,15 @@ import PySimpleGUI as sg
 import main as downloader
 import webbrowser as web
 import os
+from sys import platform
 
 sg.theme('DarkAmber') # Color Scheme
 
-user_dir = os.environ['USERPROFILE'] + '\Documents\YT Download'
+# OS based username lookup
+if platform == 'win32':
+    user_dir = os.environ['USERPROFILE'] + '\Documents\YT Download'
+if platform == 'linux' or platform == 'linux2':
+    user_dir = os.environ['USER'] + '\Documents\YT Download'
 
 font = (None, 10, 'underline')
 
