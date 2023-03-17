@@ -1,4 +1,4 @@
-# YT-Dowload
+# YT-Download
 A portable yt-dlp wrapper with GUI
 
 ## User Manual
