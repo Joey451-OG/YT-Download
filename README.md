@@ -3,7 +3,7 @@
 
 A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/yt-dlp)
 
-![winget](https://user-images.githubusercontent.com/60891047/226766502-21f561d2-6a42-40c0-a096-cf03c2554132.png)
+![winget](https://user-images.githubusercontent.com/60891047/226946769-9b5baae9-52a1-4719-9d60-ecf69b2d4ab4.svg)
 </div>
 
 ## Installtion
