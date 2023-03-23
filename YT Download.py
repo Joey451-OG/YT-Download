@@ -29,7 +29,8 @@ sg.theme('DarkAmber') # Color Scheme
 if platform == 'win32':
     user_dir = os.environ['USERPROFILE'] + '\Documents\YT Download'
 if platform == 'linux' or platform == 'linux2':
-    user_dir = os.environ['USER'] + '\Documents\YT Download'
+    user_name = os.environ['USER']
+    user_dir = '\home' + f"\{user_name}" + '\Docuemnts\YT-Download'
 
 font = (None, 10, 'underline')
 
