@@ -3,12 +3,11 @@
 
 A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/yt-dlp)
 
-![winget](https://user-images.githubusercontent.com/60891047/226946769-9b5baae9-52a1-4719-9d60-ecf69b2d4ab4.svg)
+![winget](https://user-images.githubusercontent.com/60891047/227323272-91f61384-b3af-4710-bac1-5d8f976333bd.png)
 </div>
 
 ## Installtion
-You can install YT Download with `winget` by typing `winget install yt-download` in a powershell window.  
-Alternatively, you can download the latest installer from the [Release tab.](https://github.com/Joey451-OG/YT-Download/releases)
+You can install YT Download with `winget` by typing `winget install yt-download` in a powershell window. Alternatively, you can download the latest installer from the [Release tab.](https://github.com/Joey451-OG/YT-Download/releases)
 ## User Manual
 After installing the program with the .msi or `winget`, open YT Download.
 
