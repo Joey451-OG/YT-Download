@@ -28,9 +28,10 @@ sg.theme('DarkAmber') # Color Scheme
 # OS based username lookup
 if platform == 'win32':
     user_dir = os.environ['USERPROFILE'] + '\Documents\YT Download'
+    logo = 'logo.ico'
 if platform == 'linux' or platform == 'linux2':
-    user_name = os.environ['USER']
-    user_dir = '\home' + f"\{user_name}" + '\Docuemnts\YT-Download'
+    user_dir = '~/Documents/YT-Download'
+    logo = 'logo.png'
 
 font = (None, 10, 'underline')
 
@@ -50,7 +51,7 @@ def GUI_checks(event, audio_val, url_val, dir_val):
     
     if 'playlist?list=' in url_val:
         # URL is a playlist
-        playlist_window = sg.Window('YT Download', playlist_layout, icon='logo.ico')
+        playlist_window = sg.Window('YT Download', playlist_layout, icon=logo)
         
         while True:
             p_event, p_val = playlist_window.read()
@@ -60,7 +61,7 @@ def GUI_checks(event, audio_val, url_val, dir_val):
                 break
                 
             elif p_event == 'No' or p_event == sg.WIN_CLOSED:
-                sg.popup('Not downloading playlist...', icon='logo.ico', title='YT Download')
+                sg.popup('Not downloading playlist...', icon=logo, title='YT Download')
                 playlist_window.close()
                 download = False
                 break
@@ -83,23 +84,23 @@ def GUI_checks(event, audio_val, url_val, dir_val):
 
         if event == 'Download':
             if url_val == '':
-                sg.popup('Please make sure to provide a URL', icon='logo.ico', title='YT Download')
+                sg.popup('Please make sure to provide a URL', icon=logo, title='YT Download')
             else:
                 if title == 'ERROR':
-                    sg.popup('INVALID YOUTUBE URL', icon='logo.ico', title='YT Download')
+                    sg.popup('INVALID YOUTUBE URL', icon=logo, title='YT Download')
                     title = False
 
             if title != False and url_val != '':
                 yt_download = downloader.logic(url_val, audio_val, dir_val)
 
                 if yt_download == 'FFMPEG ERROR':
-                    sg.popup('It looks like FFmpeg is not installed. Try reinstalling YT Download or add FFmpeg to the PATH manually.', icon='logo.ico', title='YT Download')
+                    sg.popup('It looks like FFmpeg is not installed. Try reinstalling YT Download or add FFmpeg to the PATH manually.', icon=logo, title='YT Download')
                 else:
-                    sg.popup(f'Downloaded {title} as a {file_type} file to {dir_val}', icon='logo.ico', title='YT Download')
+                    sg.popup(f'Downloaded {title} as a {file_type} file to {dir_val}', icon=logo, title='YT Download')
             
 
 # Main setup loop. Calls GUI_checks()
-window = sg.Window('YT Download', layout, icon='logo.ico')
+window = sg.Window('YT Download', layout, icon=logo)
 while True:
     
     playlist_layout = [
