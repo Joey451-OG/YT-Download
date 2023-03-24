@@ -46,7 +46,7 @@ layout = [ [sg.Text("Thank you for using YT Download!")],
     ]
 
 # Main logic function. Calls the appropriate functions in main.py and handles input errors.
-def GUI_checks(event, audio_val, url_val, dir_val):
+def GUI_checks(event: list, audio_val: str, url_val: str, dir_val: str):
     download = True
     
     if 'playlist?list=' in url_val:

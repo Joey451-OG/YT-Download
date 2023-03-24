@@ -38,7 +38,7 @@ audio_options = {
 
 
 # Handels downlaoding and retriving information
-def YoutubeDownloader(settings, url, isDownload=False):
+def YoutubeDownloader(settings: dict, url: str, isDownload:bool = False):
 
     if isDownload: # Downloads the audio or video file
         with YoutubeDL(settings) as ydl:
@@ -57,7 +57,7 @@ def YoutubeDownloader(settings, url, isDownload=False):
             
 
 # Main logic. Sets directory when specified and calls YoutubeDownloader()
-def logic(URL, ISaudio, DIR):
+def logic(URL: str, ISaudio: bool, DIR: str):
    
    
     audio_options['outtmpl'] = DIR + '/%(title)s.%(ext)s'
@@ -68,7 +68,7 @@ def logic(URL, ISaudio, DIR):
     else:
         return YoutubeDownloader(video_options, URL, True)
     
-def return_title(url): # Returns the title of video the url points to.
+def return_title(url: str): # Returns the title of video the url points to.
     return YoutubeDownloader(None, url)
 
 
