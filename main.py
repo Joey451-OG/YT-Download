@@ -23,8 +23,7 @@ print('TERMINAL Please keep this window open for YT Download to work.\n') # Only
 
 video_options = {
     # Download the best mp4 video available, or the best video if no mp4 available ["..." COPIED FROM: https://github.com/yt-dlp/yt-dlp#format-selection-examples]
-    'format': "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b", 
-    'verbose': True
+    'format': "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b"
 }
 
 audio_options = {
@@ -32,8 +31,7 @@ audio_options = {
     'postprocessors': [{ #FFmpeg Settings see: |yt-dlp/__init__.py --> .postprocessor| for a list of settings.
         'key': 'FFmpegExtractAudio',
         'preferredcodec': 'mp3'
-    }],
-    'verbose': True
+    }]
 }
 
 
