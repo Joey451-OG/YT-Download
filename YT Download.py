@@ -23,8 +23,11 @@ import webbrowser as web
 import os
 from sys import platform
 
+downloader.terminal_msgs(0, 0)
+
 sg.theme('DarkAmber') # Color Scheme
 
+downloader.terminal_msgs(0, 1)
 # OS based defualt directory lookup
 if platform == 'win32':
     user_dir = os.environ['USERPROFILE'] + '\Documents\YT Download'
@@ -102,6 +105,7 @@ def GUI_checks(event: list, audio_val: str, url_val: str, dir_val: str):
             
 
 # Main setup loop. Calls GUI_checks()
+downloader.terminal_msgs(0, 2)
 window = sg.Window('YT Download', layout, icon=logo)
 while True:
     

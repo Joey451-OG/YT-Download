@@ -19,8 +19,6 @@ YT Download. A simple GUI wrapper for yt-dlp.
 
 from yt_dlp import YoutubeDL, utils
 
-print('TERMINAL Please keep this window open for YT Download to work.\n') # Only is seen in the Command Line. Anything that prints to the console will only be seen in the command line.
-
 video_options = {
     # Download the best mp4 video available, or the best video if no mp4 available ["..." COPIED FROM: https://github.com/yt-dlp/yt-dlp#format-selection-examples]
     'format': "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b"
@@ -64,7 +62,15 @@ def return_title(url: str):
         except utils.DownloadError: # Invalid YouTube url error.
             return 'ERROR'
 
+def terminal_msgs(dic: int, key: int):
+    operational = {
+        0: 'TERMINAL Please keep this window open for YT Download to work.\n', # Only is seen in the Command Line. Anything that prints to the console will only be seen in the command line.
+        1: '\nDectecing OS...\n',
+        2: '\nInitialising application windows...\n'
+    }
 
+    if dic == 0:
+        print(operational[key])
 '''
 Usefull testing things:
 
