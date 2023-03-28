@@ -36,23 +36,12 @@ audio_options = {
 
 
 # Handels downlaoding and retriving information
-def YoutubeDownloader(settings: dict, url: str, isDownload:bool = False):
-
-    if isDownload: # Downloads the audio or video file
-        with YoutubeDL(settings) as ydl:
-            try:
-                ydl.download(url)
-            except utils.DownloadError:
-                return 'FFMPEG ERROR'
-    else:
-        with YoutubeDL() as ydl: # Returns the title of video the url points to. 
-            try:
-                info = ydl.extract_info(url, download=False)
-                return info['title']
-            except utils.DownloadError:
-                return 'ERROR'
-            
-            
+def YoutubeDownloader(settings: dict, url: str):
+    with YoutubeDL(settings) as ydl:
+        try:
+            ydl.download(url)
+        except utils.DownloadError:
+            return 'FFMPEG ERROR'    
 
 # Main logic. Sets directory when specified and calls YoutubeDownloader()
 def logic(URL: str, ISaudio: bool, DIR: str):
@@ -66,8 +55,14 @@ def logic(URL: str, ISaudio: bool, DIR: str):
     else:
         return YoutubeDownloader(video_options, URL, True)
     
-def return_title(url: str): # Returns the title of video the url points to.
-    return YoutubeDownloader(None, url)
+# Returns the title of video the url points to.
+def return_title(url: str):
+    with YoutubeDL() as ydl:
+        try:
+            info = ydl.extract_info(url, download=False)
+            return info['title']
+        except utils.DownloadError: # Invalid YouTube url error.
+            return 'ERROR'
 
 
 '''
