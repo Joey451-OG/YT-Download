@@ -43,15 +43,15 @@ def YoutubeDownloader(settings: dict, url: str):
 
 # Main logic. Sets directory when specified and calls YoutubeDownloader()
 def logic(URL: str, ISaudio: bool, DIR: str):
-   
-   
+    terminal_msgs(0, 3)
     audio_options['outtmpl'] = DIR + '/%(title)s.%(ext)s'
     video_options['outtmpl'] = DIR + '/%(title)s.%(ext)s'                
     
+    terminal_msgs(0, 4)
     if ISaudio: # Download as audio or video
-        return YoutubeDownloader(audio_options, URL, True)
+        return YoutubeDownloader(audio_options, URL)
     else:
-        return YoutubeDownloader(video_options, URL, True)
+        return YoutubeDownloader(video_options, URL)
     
 # Returns the title of video the url points to.
 def return_title(url: str):
@@ -66,7 +66,9 @@ def terminal_msgs(dic: int, key: int):
     operational = {
         0: 'TERMINAL Please keep this window open for YT Download to work.\n', # Only is seen in the Command Line. Anything that prints to the console will only be seen in the command line.
         1: '\nDectecing OS...\n',
-        2: '\nInitialising application windows...\n'
+        2: '\nInitialising application windows...\n',
+        3: '\nSelecting directory...\n',
+        4: '\nDownloading...\n'
     }
 
     if dic == 0:
