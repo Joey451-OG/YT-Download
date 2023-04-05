@@ -41,7 +41,7 @@ def YoutubeDownloader(settings: dict, url: str):
         except utils.DownloadError:
             return 'FFMPEG ERROR'    
 
-# Main logic. Sets directory when specified and calls YoutubeDownloader()
+# Main logic. Sets directory and calls YoutubeDownloader()
 def logic(URL: str, ISaudio: bool, DIR: str):
     terminal_msgs(0, 3)
     audio_options['outtmpl'] = DIR + '/%(title)s.%(ext)s'
