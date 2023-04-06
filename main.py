@@ -33,7 +33,7 @@ audio_options = {
 }
 
 
-# Handels downlaoding and retriving information
+# Handles downloading and retrieving information
 def YoutubeDownloader(settings: dict, url: str):
     with YoutubeDL(settings) as ydl:
         try:
