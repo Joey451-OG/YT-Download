@@ -72,7 +72,7 @@ def terminal_msgs(dic: int, key: int):
     }
 
     if dic == 0:
-        print(operational[key])
+        print(operational[key]) # I might add more dictionaries to this function so this code isn't redundant
 '''
 Useful testing things:
 
