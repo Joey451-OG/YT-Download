@@ -115,7 +115,7 @@ while True:
     ]
 
     event, values = window.read() # Check the active event and the value dictionary.
-    print(event, values) # Print event and values for debuging in the command line.
+    print(event, values) # Print event and values for debugging in the command line.
 
     if event == sg.WIN_CLOSED or event == 'Cancel': # Break the loop if the window is closed or the 'Cancel' button is pressed
         break
