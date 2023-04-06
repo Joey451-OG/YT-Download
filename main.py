@@ -74,7 +74,7 @@ def terminal_msgs(dic: int, key: int):
     if dic == 0:
         print(operational[key])
 '''
-Usefull testing things:
+Useful testing things:
 
 https://youtu.be/I8sUC-dsW8A
 '''
