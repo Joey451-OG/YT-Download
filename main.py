@@ -65,8 +65,8 @@ def return_title(url: str):
 def terminal_msgs(dic: int, key: int):
     operational = {
         0: 'TERMINAL Please keep this window open for YT Download to work.\n', # Only is seen in the Command Line. Anything that prints to the console will only be seen in the command line.
-        1: '\nDectecing OS...\n',
-        2: '\nInitialising application windows...\n',
+        1: '\nDetecting OS...\n',
+        2: '\nInitializing application windows...\n',
         3: '\nSelecting directory...\n',
         4: '\nDownloading...\n'
     }
