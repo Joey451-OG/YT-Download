@@ -19,8 +19,6 @@ YT Download. A simple GUI wrapper for yt-dlp.
 
 from yt_dlp import YoutubeDL, utils
 
-print('TERMINAL Please keep this window open for YT Download to work.\n') # Only is seen in the Command Line. Anything that prints to the console will only be seen in the command line.
-
 video_options = {
     # Download the best mp4 video available, or the best video if no mp4 available ["..." COPIED FROM: https://github.com/yt-dlp/yt-dlp#format-selection-examples]
     'format': "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b"
@@ -35,43 +33,48 @@ audio_options = {
 }
 
 
-# Handels downlaoding and retriving information
-def YoutubeDownloader(settings: dict, url: str, isDownload:bool = False):
+# Handles downloading and retrieving information
+def YoutubeDownloader(settings: dict, url: str):
+    with YoutubeDL(settings) as ydl:
+        try:
+            ydl.download(url)
+        except utils.DownloadError:
+            return 'FFMPEG ERROR'    
 
-    if isDownload: # Downloads the audio or video file
-        with YoutubeDL(settings) as ydl:
-            try:
-                ydl.download(url)
-            except utils.DownloadError:
-                return 'FFMPEG ERROR'
-    else:
-        with YoutubeDL() as ydl: # Returns the title of video the url points to. 
-            try:
-                info = ydl.extract_info(url, download=False)
-                return info['title']
-            except utils.DownloadError:
-                return 'ERROR'
-            
-            
-
-# Main logic. Sets directory when specified and calls YoutubeDownloader()
+# Main logic. Sets directory and calls YoutubeDownloader()
 def logic(URL: str, ISaudio: bool, DIR: str):
-   
-   
+    terminal_msgs(0, 3)
     audio_options['outtmpl'] = DIR + '/%(title)s.%(ext)s'
     video_options['outtmpl'] = DIR + '/%(title)s.%(ext)s'                
     
+    terminal_msgs(0, 4)
     if ISaudio: # Download as audio or video
-        return YoutubeDownloader(audio_options, URL, True)
+        return YoutubeDownloader(audio_options, URL)
     else:
-        return YoutubeDownloader(video_options, URL, True)
+        return YoutubeDownloader(video_options, URL)
     
-def return_title(url: str): # Returns the title of video the url points to.
-    return YoutubeDownloader(None, url)
+# Returns the title of video the url points to.
+def return_title(url: str):
+    with YoutubeDL() as ydl:
+        try:
+            info = ydl.extract_info(url, download=False)
+            return info['title']
+        except utils.DownloadError: # Invalid YouTube url error.
+            return 'ERROR'
 
+def terminal_msgs(dic: int, key: int):
+    operational = {
+        0: 'TERMINAL Please keep this window open for YT Download to work.\n', # Only is seen in the Command Line. Anything that prints to the console will only be seen in the command line.
+        1: '\nDetecting OS...\n',
+        2: '\nInitializing application windows...\n',
+        3: '\nSelecting directory...\n',
+        4: '\nDownloading...\n'
+    }
 
+    if dic == 0:
+        print(operational[key]) # I might add more dictionaries to this function so this code isn't redundant
 '''
-Usefull testing things:
+Useful testing things:
 
 https://youtu.be/I8sUC-dsW8A
 '''
