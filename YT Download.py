@@ -22,10 +22,9 @@ import main as downloader
 import webbrowser as web
 import os
 from sys import platform
-
-sg.theme('DarkAmber') # Color Scheme
-
 cfg = downloader.config()
+
+sg.theme(cfg.color_theme) # Color Scheme
 
 # OS based default directory lookup
 downloader.terminal_msgs(0, 0)

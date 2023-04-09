@@ -25,11 +25,15 @@ class config:
     def __init__(self) -> None:
         with open('config.yml', 'r') as file:
             self.cfg = yaml.load(file, Loader=yaml.FullLoader)
+            # Directory Settings
             self.use_default_directory = self.cfg['use_default_directory']
             self.custom_default_directory = self.cfg['custom_default_directory']
+            # Popup Settings
             self.playlist_confirmation = self.cfg['playlist_confirmation']
             self.file_downloaded = self.cfg['file_downloaded']
+            # Miscellaneous Settings
             self.default_as_audio = self.cfg['default_as_audio']
+            self.color_theme = self.cfg['color_theme']
 
 video_options = {
     # Download the best mp4 video available, or the best video if no mp4 available ["..." COPIED FROM: https://github.com/yt-dlp/yt-dlp#format-selection-examples]

@@ -6,5 +6,6 @@ custom_default_directory: paste\custom\default\directory\path\here
 playlist_confirmation: yes
 file_downloaded: yes
 
-# Miscellaneous
+# Miscellaneous Settings
 default_as_audio: no
+color_theme: DarkAmber # For a full list of available themes, see 'themes.png' in YT Download's install location
