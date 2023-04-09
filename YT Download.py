@@ -28,7 +28,7 @@ downloader.terminal_msgs(0, 0)
 sg.theme('DarkAmber') # Color Scheme
 
 downloader.terminal_msgs(0, 1)
-# OS based defualt directory lookup
+# OS based default directory lookup
 if platform == 'win32':
     user_dir = os.environ['USERPROFILE'] + '\Documents\YT Download'
     logo = 'logo.ico'
@@ -58,7 +58,7 @@ def GUI_checks(event: list, audio_val: str, url_val: str, dir_val: str):
         while True: # Open the confirmation popup
             p_event, p_val = playlist_window.read()
             print(p_event, p_val)
-            if p_event == 'Yes': # If yes, conintue downloading and close the popup
+            if p_event == 'Yes': # If yes, continue downloading and close the popup
                 playlist_window.close()
                 break
                 
@@ -71,7 +71,7 @@ def GUI_checks(event: list, audio_val: str, url_val: str, dir_val: str):
     if download:
         # Reason for setting title to playlist
         '''
-        I set the title to playlist first to handle the conidition in which the user is trying to download a playlist.
+        I set the title to playlist first to handle the condition in which the user is trying to download a playlist.
         title will be changed if the user is not downloading a playlist.
         '''
         title = 'playlist'
@@ -79,7 +79,7 @@ def GUI_checks(event: list, audio_val: str, url_val: str, dir_val: str):
         if 'playlist?list=' not in url_val:
             title = downloader.return_title(url_val)
         
-        if dir_val == '': # Check to see if user wants to use the defualt dir
+        if dir_val == '': # Check to see if user wants to use the default dir
             dir_val = user_dir
         
         if audio_val: # Check to see if the user want to download as an audio file
@@ -88,10 +88,10 @@ def GUI_checks(event: list, audio_val: str, url_val: str, dir_val: str):
             file_type = '.mp4'
 
         
-        if url_val == '': # Check to see if the url feild is empty, then warn the user if it is.
+        if url_val == '': # Check to see if the url field is empty, then warn the user if it is.
             sg.popup('Please make sure to provide a URL', icon=logo, title='YT Download')
         else:
-            if title == 'ERROR': # Check for an invaild url
+            if title == 'ERROR': # Check for an invalid url
                 sg.popup('INVALID YOUTUBE URL', icon=logo, title='YT Download')
                 title = False
 
