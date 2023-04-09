@@ -23,25 +23,33 @@ import webbrowser as web
 import os
 from sys import platform
 
-downloader.terminal_msgs(0, 0)
-
 sg.theme('DarkAmber') # Color Scheme
 
-downloader.terminal_msgs(0, 1)
+cfg = downloader.config()
+
 # OS based default directory lookup
-if platform == 'win32':
-    user_dir = os.environ['USERPROFILE'] + '\Documents\YT Download'
-    logo = 'logo.ico'
-if platform == 'linux' or platform == 'linux2':
-    user_dir = '~/Documents/YT-Download'
-    logo = 'logo.png'
+downloader.terminal_msgs(0, 0)
+if cfg.use_default_directory:  
+    if platform == 'win32':
+        user_dir = os.environ['USERPROFILE'] + '\Documents\YT Download'
+        logo = 'logo.ico'
+    if platform == 'linux' or platform == 'linux2':
+        user_dir = '~/Documents/YT-Download'
+        logo = 'logo.png'
+else:
+    user_dir = cfg.custom_default_directory
+    if platform == 'win32':
+        logo = 'logo.ico'
+    if platform == 'linux' or platform == 'linux2':
+        logo = 'logo.png'
 
 font = (None, 10, 'underline')
 
+downloader.terminal_msgs(0, 1)
 # GUI layout
 layout = [ [sg.Text("Thank you for using YT Download!")],
            [sg.Text("YouTube URL:"), sg.InputText(key='URL')],
-           [sg.Checkbox('Download as an audio file (mp3)?', default=False, key='isAudio')],
+           [sg.Checkbox('Download as an audio file (mp3)?', default=cfg.default_as_audio, key='isAudio')],
            [sg.Text('File path. Leave blank to save download to:')],
            [sg.Text(f'{user_dir}')],
            [sg.Input(key='DIR'), sg.FolderBrowse()],
@@ -49,10 +57,12 @@ layout = [ [sg.Text("Thank you for using YT Download!")],
     ]
 
 # Main logic function. Calls the appropriate functions in main.py and handles input errors.
-def GUI_checks(event: list, audio_val: str, url_val: str, dir_val: str):
+def GUI_checks(audio_val: str, url_val: str, dir_val: str):
+    
+    
     download = True
     
-    if 'playlist?list=' in url_val: # URL is a playlist
+    if 'playlist?list=' in url_val and cfg.playlist_confirmation: # URL is a playlist and playlist confirmation is True
         playlist_window = sg.Window('YT Download', playlist_layout, icon=logo)
         
         while True: # Open the confirmation popup
@@ -100,7 +110,7 @@ def GUI_checks(event: list, audio_val: str, url_val: str, dir_val: str):
 
                 if yt_download == 'FFMPEG ERROR': # Check for a FFMPEG error
                     sg.popup('It looks like FFmpeg is not installed. Try reinstalling YT Download or add FFmpeg to the PATH manually.', icon=logo, title='YT Download')
-                else: # Downloaded confirmation popup
+                elif cfg.file_downloaded: # Downloaded confirmation popup
                     sg.popup(f'Downloaded {title} as a {file_type} file to {dir_val}', icon=logo, title='YT Download')
             
 
@@ -124,6 +134,6 @@ while True:
         web.open("https://github.com/Joey451-OG/YT-Dowload")
 
     if event == 'Download': # Was the Download button pressed?
-        GUI_checks(event, values['isAudio'], values['URL'], values['DIR'])
+        GUI_checks(values['isAudio'], values['URL'], values['DIR'])
 
 window.close() # Kill the program

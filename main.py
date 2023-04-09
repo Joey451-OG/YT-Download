@@ -18,6 +18,18 @@ YT Download. A simple GUI wrapper for yt-dlp.
 '''
 
 from yt_dlp import YoutubeDL, utils
+import yaml
+
+# Handles the config file
+class config:
+    def __init__(self) -> None:
+        with open('config.yml', 'r') as file:
+            self.cfg = yaml.load(file, Loader=yaml.FullLoader)
+            self.use_default_directory = self.cfg['use_default_directory']
+            self.custom_default_directory = self.cfg['custom_default_directory']
+            self.playlist_confirmation = self.cfg['playlist_confirmation']
+            self.file_downloaded = self.cfg['file_downloaded']
+            self.default_as_audio = self.cfg['default_as_audio']
 
 video_options = {
     # Download the best mp4 video available, or the best video if no mp4 available ["..." COPIED FROM: https://github.com/yt-dlp/yt-dlp#format-selection-examples]
@@ -62,6 +74,7 @@ def return_title(url: str):
         except utils.DownloadError: # Invalid YouTube url error.
             return 'ERROR'
 
+# Prints terminal messages
 def terminal_msgs(dic: int, key: int):
     operational = {
         0: 'TERMINAL Please keep this window open for YT Download to work.\n', # Only is seen in the Command Line. Anything that prints to the console will only be seen in the command line.
@@ -76,5 +89,9 @@ def terminal_msgs(dic: int, key: int):
 '''
 Useful testing things:
 
+One video
 https://youtu.be/I8sUC-dsW8A
+
+Playlist
+https://youtube.com/playlist?list=PLq-8SN7V15mnk7-hLp2i7Lwh7gPZwkFoX
 '''

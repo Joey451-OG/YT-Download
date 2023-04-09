@@ -1,0 +1,10 @@
+# Directory Settings
+use_default_directory: yes
+custom_default_directory: paste\custom\default\directory\path\here
+
+# Popup Settings
+playlist_confirmation: yes
+file_downloaded: yes
+
+# Miscellaneous
+default_as_audio: no
