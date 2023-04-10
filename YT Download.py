@@ -23,11 +23,11 @@ import webbrowser as web
 import os
 from sys import platform
 cfg = downloader.config()
-
+downloader.terminal_msgs(0, 0)
 sg.theme(cfg.color_theme) # Color Scheme
 
 # OS based default directory lookup
-downloader.terminal_msgs(0, 0)
+downloader.terminal_msgs(0, 1)
 if cfg.use_default_directory:  
     if platform == 'win32':
         user_dir = os.environ['USERPROFILE'] + '\Documents\YT Download'
@@ -44,7 +44,7 @@ else:
 
 font = (None, 10, 'underline')
 
-downloader.terminal_msgs(0, 1)
+
 # GUI layout
 layout = [ [sg.Text("Thank you for using YT Download!")],
            [sg.Text("YouTube URL:"), sg.InputText(key='URL')],
