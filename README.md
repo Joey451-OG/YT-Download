@@ -6,12 +6,34 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
 ![winget](https://user-images.githubusercontent.com/60891047/227323272-91f61384-b3af-4710-bac1-5d8f976333bd.png)
 </div>
 
-## Installtion
-You can install YT Download with `winget` by typing `winget install yt-download` in a powershell window. Alternatively, you can download the latest installer from the [Release tab.](https://github.com/Joey451-OG/YT-Download/releases)
-## User Manual
+## Table of Contents  
+* [Change Log](#change-log)
+* [Installation](#installation)  
+    * [Windows](#windows)  
+    * [Linux](#linux)
+* [User Manual](#user-manual)  
+    * [Launching on Linux](#launching-on-linux)
+    * [Downloading Playlists](#downloading-playlists)
+* [Changing Settings](#changing-settings)
+* [Credits](#credits)
+
+## Change Log
+STILL IN DEV
+
+## Installation    
+### Windows
+You can install YT Download with `winget` by typing `winget install yt-download` in a powershell window. Alternatively, you can download the latest installer from the [Release tab.](https://github.com/Joey451-OG/YT-Download/releases)  
+
+### Linux  
+STILL IN DEV  
+
+## User Manual  
 After installing the program with the .msi or `winget`, open YT Download.
 
-<img width="600" alt="opening" src="https://user-images.githubusercontent.com/60891047/225435630-903ae087-debf-4dbf-919b-db6555c6c089.png">
+<img width="600" alt="opening" src="https://user-images.githubusercontent.com/60891047/225435630-903ae087-debf-4dbf-919b-db6555c6c089.png">  
+
+> ### Launching on Linux
+> STILL IN DEV
 
 The program will open a terminal window and the GUI. Do not close the terminal, it is required for the program to run.
 
@@ -48,9 +70,10 @@ Once your file is done downloading, a popup will apear showing the title of the 
 
 <img width="1280" alt="downloaded" src="https://user-images.githubusercontent.com/60891047/225439007-7dadec6c-623e-4445-8ac7-6bd664f8f972.png">
 
-<img width="872" alt="file" src="https://user-images.githubusercontent.com/60891047/225439475-56294cf0-db5c-497d-bdc6-55af6150614b.png">
+<img width="872" alt="file" src="https://user-images.githubusercontent.com/60891047/225439475-56294cf0-db5c-497d-bdc6-55af6150614b.png">  
 
-Thank YOU for using YT Download!
+## Changing Settings  
+STILL IN DEV  
 ## Credits
 Icon: Image by https://pixabay.com/images/id-1834016/
 
