@@ -12,7 +12,7 @@ What does this change do?
 
 ## Fixes
 Does this change fix an open ticket? If so, please link it here
-<!-- Replace the #### with the ticket number and past the link in the parenthesis -->
+<!-- Replace the #### with the ticket number and paste the link in the parenthesis -->
 [Ticket ####]()
 
 
