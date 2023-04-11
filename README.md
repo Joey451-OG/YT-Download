@@ -73,7 +73,32 @@ Once your file is done downloading, a popup will apear showing the title of the 
 <img width="872" alt="file" src="https://user-images.githubusercontent.com/60891047/225439475-56294cf0-db5c-497d-bdc6-55af6150614b.png">  
 
 ## Changing Settings  
-STILL IN DEV  
+1.3.0 Introduced the ablity to change YT Downlaod's settings by modifying the `config.yml` file. Here is a breakdown on what each option does.  
+
+This is the default state of `config.yml`
+```yaml
+# Directory Settings
+use_default_directory: yes
+custom_default_directory: paste\custom\default\directory\path\here
+
+# Popup Settings
+playlist_confirmation: yes
+file_downloaded: yes
+
+# Miscellaneous Settings
+default_as_audio: no
+color_theme: DarkAmber # For a full list of available themes, see 'themes.png' in YT Download's install location
+```
+
+The config file is broken up into three sub-sections: `Directory Settings`, `Popup Settings`, and `Miscellaneous Settings`. `Directory Settings` controlls how YT Download handles directories, `Popup Settings` handles how YT Download uses popups, and `Miscellaneous Settings` controlls... well.. miscellaneous settings such as YT Download's color theme.  
+
+### Directory Settings
+As stated previously, `Directory Settings` controlls how YT Download handles directories. Here is how each setting works.  
+  
+`use_default_directory` | Conditions: `yes`, `no`  
+If `yes` YT Download will use the default directory. For windows users the defualt directory is: `C:\users\%USERPROFILE%\Documents\YT Download`. For linux users the default directory is: `~/Documents/YT-Download`
+
+
 ## Credits
 Icon: Image by https://pixabay.com/images/id-1834016/
 
