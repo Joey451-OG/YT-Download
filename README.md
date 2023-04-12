@@ -15,6 +15,9 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
     * [Launching on Linux](#launching-on-linux)
     * [Downloading Playlists](#downloading-playlists)
 * [Changing Settings](#changing-settings)
+    * [Directory Settings](#directory-settings)
+    * [Popup Settings](#popup-settings)
+    * [Miscellaneous Settings](#miscellaneous-settings)
 * [Credits](#credits)
 
 ## Change Log
@@ -46,7 +49,7 @@ Now, simply copy the url of the YouTube video you want to download and paste it 
 Make sure to check the `Download as an audio file (mp3)?` checkbox if you want to download as an audio file. For example, this video is an official audio video, so I will be checking this box.
 
 >          
-> **NOTE: This program automaticly downloads your videos/audio in the highest quaily possible.**
+> **NOTE: This program automatically downloads your videos/audio in the highest quality possible.**
 > 
 
 <img width="1280" alt="url" src="https://user-images.githubusercontent.com/60891047/225436855-26570c71-893c-4aed-b572-0587ccc295cf.png">
@@ -65,15 +68,15 @@ Next, just click `Download`.
 > 
 > <img width="304" alt="Playlist Warning" src="https://user-images.githubusercontent.com/60891047/225441213-089e396e-b585-4721-8119-e13da2fe3902.png">
 > 
-
-Once your file is done downloading, a popup will apear showing the title of the youtube video you downloaded and where on your computer you saved it. (When downloading a playlist, this popup will only appear once the whole playlist is done downloading so please be patient.)
+  
+Once your file is done downloading, a popup will appear showing the title of the youtube video you downloaded and where on your computer you saved it. (When downloading a playlist, this popup will only appear once the whole playlist is done downloading so please be patient.)
 
 <img width="1280" alt="downloaded" src="https://user-images.githubusercontent.com/60891047/225439007-7dadec6c-623e-4445-8ac7-6bd664f8f972.png">
 
 <img width="872" alt="file" src="https://user-images.githubusercontent.com/60891047/225439475-56294cf0-db5c-497d-bdc6-55af6150614b.png">  
 
 ## Changing Settings  
-1.3.0 Introduced the ablity to change YT Downlaod's settings by modifying the `config.yml` file. Here is a breakdown on what each option does.  
+1.3.0 Introduced the ability to change YT Download's settings by modifying the `config.yml` file. Here is a breakdown on what each option does.  
 
 This is the default state of `config.yml`
 ```yaml
@@ -90,14 +93,38 @@ default_as_audio: no
 color_theme: DarkAmber # For a full list of available themes, see 'themes.png' in YT Download's install location
 ```
 
-The config file is broken up into three sub-sections: `Directory Settings`, `Popup Settings`, and `Miscellaneous Settings`. `Directory Settings` controlls how YT Download handles directories, `Popup Settings` handles how YT Download uses popups, and `Miscellaneous Settings` controlls... well.. miscellaneous settings such as YT Download's color theme.  
+The config file is broken up into three sub-sections: `Directory Settings`, `Popup Settings`, and `Miscellaneous Settings`. [Directory Settings](#directory-settings) controls how YT Download handles directories, [Popup Settings](#popup-settings) handles how YT Download uses popups, and [Miscellaneous Settings](#miscellaneous-settings) controls... well.. miscellaneous settings such as YT Download's color theme.  
 
 ### Directory Settings
-As stated previously, `Directory Settings` controlls how YT Download handles directories. Here is how each setting works.  
+As stated previously, `Directory Settings` controls how YT Download handles directories.  
   
-`use_default_directory` | Conditions: `yes`, `no`  
-If `yes` YT Download will use the default directory. For windows users the defualt directory is: `C:\users\%USERPROFILE%\Documents\YT Download`. For linux users the default directory is: `~/Documents/YT-Download`
+<u>`use_default_directory` | Input: *yes*, *no*</u>  
+If *yes* YT Download will use the default directory. For windows users the default directory is: `C:\users\%USERPROFILE%\Documents\YT Download`. For linux users the default directory is: `~/Documents/YT-Download`. If *no*, then YT Download will use whatever directory is specified in `custom_default_directory` as the default directory.   
 
+<u>`custom_default_directory` | Input: *PATH str*</u>  
+Whatever directory path that is inputted here will be used as the default directory if 
+`use_default_directory` is *no*.  
+
+> Note: One common mistake when using this feature is not typing the directory in properly. The author strongly recommends pasting the directory path into this field. However, if one is unable to do such, remember to use backslashes ( `\` ) for windows and forward slashes ( `/` ) for linux. If the directory is inputted incorrectly, YT Download will make a new directory in the program's root directory.  
+
+### Popup Settings
+`Popup Settings` handles which popups YT Download shows.
+> Note: `Popup Settings` cannot disable error popups
+
+<u>`playlist_confirmation`</u> | Input: *yes*, *no*  
+If *yes*, the [playlist confirmation popup](#downloading-playlists) will be shown. If *no*, the popup will not be shown. This will result in the playlist being downloaded without any extra user input.  
+
+<u>`file_downloaded`</u> | Input: *yes*, *no*  
+If *yes* the [file downloaded](https://user-images.githubusercontent.com/60891047/225439007-7dadec6c-623e-4445-8ac7-6bd664f8f972.png) popup will be shown. If *no*, the popup will not be shown.  
+
+### Miscellaneous Settings
+`Miscellaneous Settings` handles a mix of different settings.  
+
+<u>`default_as_audio`</u> | Input: *yes*, *no*  
+If *yes*, the `Download as audio file (mp3)?` box will already be selected when opening YT Download. If *no* the checkbox will not be selected by default.  
+
+<u>`color_theme`</u> | Input: *str*  
+`color_theme` controls which PySimpleGUI color theme will be used. 
 
 ## Credits
 Icon: Image by https://pixabay.com/images/id-1834016/
