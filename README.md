@@ -18,6 +18,7 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
     * [Directory Settings](#directory-settings)
     * [Popup Settings](#popup-settings)
     * [Miscellaneous Settings](#miscellaneous-settings)
+    * [Making Changes](#making-changes)
 * [Credits](#credits)
 
 ## Change Log
@@ -97,16 +98,16 @@ The config file is broken up into three sub-sections: `Directory Settings`, `Pop
 
 ### Directory Settings
 As stated previously, `Directory Settings` controls how YT Download handles directories.  
-  
+
 <u>`use_default_directory` | Input: *yes*, *no*</u>  
 If *yes* YT Download will use the default directory. For windows users the default directory is: `C:\users\%USERPROFILE%\Documents\YT Download`. For linux users the default directory is: `~/Documents/YT-Download`. If *no*, then YT Download will use whatever directory is specified in `custom_default_directory` as the default directory.   
-
+  
 <u>`custom_default_directory` | Input: *PATH str*</u>  
 Whatever directory path that is inputted here will be used as the default directory if 
 `use_default_directory` is *no*.  
 
 > Note: One common mistake when using this feature is not typing the directory in properly. The author strongly recommends pasting the directory path into this field. However, if one is unable to do such, remember to use backslashes ( `\` ) for windows and forward slashes ( `/` ) for linux. If the directory is inputted incorrectly, YT Download will make a new directory in the program's root directory.  
-
+  
 ### Popup Settings
 `Popup Settings` handles which popups YT Download shows.
 > Note: `Popup Settings` cannot disable error popups
@@ -124,7 +125,22 @@ If *yes* the [file downloaded](https://user-images.githubusercontent.com/6089104
 If *yes*, the `Download as audio file (mp3)?` box will already be selected when opening YT Download. If *no* the checkbox will not be selected by default.  
 
 <u>`color_theme`</u> | Input: *str*  
-`color_theme` controls which PySimpleGUI color theme will be used. 
+Controls which PySimpleGUI color theme will be used. To change the color theme, simple pick a theme and copy its' name into the field. Make sure to mind the casing (e.g., *DarkAmber* is a valid theme but *darkamber* is not).  
+
+![themes](https://user-images.githubusercontent.com/60891047/231323710-094b9efd-9f88-490d-b172-4e42cc56dd1b.png)
+
+For an interactive version of this image follow the steps bellow.  
+
+- Make sure Python is installed then run: `pip install PySimpleGUI` in a terminal window.  
+- Start up Python by typing the command `python` (or `python3` for linux users).
+- Paste the bellow code:  
+```python
+import PySimpleGUI
+
+PySimpleGUI.theme_previewer()
+```
+### Making Changes
+After you are finished editing the config file, simply save the file and researt YT Download for the changes to come into effect.
 
 ## Credits
 Icon: Image by https://pixabay.com/images/id-1834016/
