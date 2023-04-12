@@ -29,7 +29,73 @@ STILL IN DEV
 You can install YT Download with `winget` by typing `winget install yt-download` in a powershell window. Alternatively, you can download the latest installer from the [Release tab.](https://github.com/Joey451-OG/YT-Download/releases)  
 
 ### Linux  
-STILL IN DEV  
+Since YT Download does not yet have a linux, you'll need to clone this github repo, install the dependencies, and start up YT Download by running the python file with the same name. Here is a step-by-step guide on how to do just that.  
+
+First, install git:
+```
+sudo apt install git
+```  
+Next, install pip.  
+```
+sudo apt install python3-pip
+```
+Make sure to navigate to the folder where you want YT Download to install to.  
+Then, clone this repo:
+```
+git clone https://www.github.com/Joey451-OG/YT-Download
+```
+Now it's time to install the dependencies.  
+First, install PySimpleGUI:
+```
+pip install PySimpleGUI
+```
+Next, install Tkinter:
+```
+sudo apt install python-tk
+```
+Now, install yt-dlp:
+```
+pip install yt-dlp
+```
+Finally, install FFmpeg:
+```
+sudo apt install ffmpeg
+```
+
+YT Download is now ready to use. To launch YT Download, use this command in the directory where this repo was cloned:
+```
+python3 'YT Download.py'
+``` 
+
+The rest of the documentation still applies to linux. In rare instances where there are differences, there will be ample explanation.  
+
+### Suggested Changes for Linux Users
+
+Even though YT Download is fully functional (given you have followed the tutorial above), users might wish to make some quality of life changes.
+
+First would be to rename `YT Download.py` to `YT-Download.py` in order to not have to type the quotation marks when launching the program. This can be done using a GUI, but to do it in the terminal first navigate to where YT Download is installed and then run this command.
+```
+mv 'YT Download.py' YT-Download.py
+```
+
+Finally, it is very inconvenient to have to navigate to where YT Download was installed in order to launch it. To fix this, simple add the install directory to the PATH.
+
+First, note down which directory where YT Download is installed. For this example I will use `/home/%USER%/Desktop/YT-Download`.  
+
+Next, open the `~/.bashrc` file as sudo.
+```
+sudo nano ~/.bashrc
+```
+> If you don't have nano installed, you can install it with:  
+>```
+>sudo apt install nano
+>```
+
+Navigate to the bottom of the file and add this line:
+```
+export PATH="/home/%USER%/Desktop/YT-Download$PATH"
+```
+To save the file press `Ctrl+X` then press `y` and `enter`
 
 ## User Manual  
 After installing the program with the .msi or `winget`, open YT Download.
@@ -99,10 +165,10 @@ The config file is broken up into three sub-sections: `Directory Settings`, `Pop
 ### Directory Settings
 As stated previously, `Directory Settings` controls how YT Download handles directories.  
 
-<u>`use_default_directory` | Input: *yes*, *no*</u>  
+`use_default_directory` | Input: *yes*, *no*  
 If *yes* YT Download will use the default directory. For windows users the default directory is: `C:\users\%USERPROFILE%\Documents\YT Download`. For linux users the default directory is: `~/Documents/YT-Download`. If *no*, then YT Download will use whatever directory is specified in `custom_default_directory` as the default directory.   
   
-<u>`custom_default_directory` | Input: *PATH str*</u>  
+`custom_default_directory` | Input: *PATH str*  
 Whatever directory path that is inputted here will be used as the default directory if 
 `use_default_directory` is *no*.  
 
@@ -112,19 +178,19 @@ Whatever directory path that is inputted here will be used as the default direct
 `Popup Settings` handles which popups YT Download shows.
 > Note: `Popup Settings` cannot disable error popups
 
-<u>`playlist_confirmation`</u> | Input: *yes*, *no*  
+`playlist_confirmation` | Input: *yes*, *no*  
 If *yes*, the [playlist confirmation popup](#downloading-playlists) will be shown. If *no*, the popup will not be shown. This will result in the playlist being downloaded without any extra user input.  
 
-<u>`file_downloaded`</u> | Input: *yes*, *no*  
+`file_downloaded` | Input: *yes*, *no*  
 If *yes* the [file downloaded](https://user-images.githubusercontent.com/60891047/225439007-7dadec6c-623e-4445-8ac7-6bd664f8f972.png) popup will be shown. If *no*, the popup will not be shown.  
 
 ### Miscellaneous Settings
 `Miscellaneous Settings` handles a mix of different settings.  
 
-<u>`default_as_audio`</u> | Input: *yes*, *no*  
+`default_as_audio` | Input: *yes*, *no*  
 If *yes*, the `Download as audio file (mp3)?` box will already be selected when opening YT Download. If *no* the checkbox will not be selected by default.  
 
-<u>`color_theme`</u> | Input: *str*  
+`color_theme` | Input: *str*  
 Controls which PySimpleGUI color theme will be used. To change the color theme, simple pick a theme and copy its' name into the field. Make sure to mind the casing (e.g., *DarkAmber* is a valid theme but *darkamber* is not).  
 
 ![themes](https://user-images.githubusercontent.com/60891047/231323710-094b9efd-9f88-490d-b172-4e42cc56dd1b.png)
