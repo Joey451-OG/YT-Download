@@ -29,7 +29,7 @@ STILL IN DEV
 You can install YT Download with `winget` by typing `winget install yt-download` in a powershell window. Alternatively, you can download the latest installer from the [Release tab.](https://github.com/Joey451-OG/YT-Download/releases)  
 
 ### Linux  
-Since YT Download does not yet have a linux, you'll need to clone this github repo, install the dependencies, and start up YT Download by running the python file with the same name. Here is a step-by-step guide on how to do just that.  
+Since YT Download does not yet have a linux binary, you'll need to clone this github repo, install the dependencies, and start up YT Download by running the python file with the same name. Here is a step-by-step guide on how to do just that.  
 
 First, install git:
 ```
@@ -51,11 +51,32 @@ pip install PySimpleGUI
 ```
 Next, install Tkinter:
 ```
-sudo apt install python-tk
+sudo apt install python3-tk
 ```
 Now, install yt-dlp:
 ```
 pip install yt-dlp
+```
+yt-dlp may not install to the PATH. To fix this, open `~/.bashrc` as `sudo`
+```
+sudo nano ~/.bashrc
+```
+
+> If you don't have nano installed, you can install it with:  
+>```
+>sudo apt install nano
+>```
+
+Then add this line to the bottom of the file.
+```
+export PATH="/home/%USER%/.local/bin:$PATH"
+```
+
+To save the file press `Ctrl+X` then press `y` and `enter`  
+
+Then, source the `~/.bashrc` file.
+```
+source ~/.bashrc
 ```
 Finally, install FFmpeg:
 ```
@@ -73,7 +94,7 @@ The rest of the documentation still applies to linux. In rare instances where th
 
 Even though YT Download is fully functional (given you have followed the tutorial above), users might wish to make some quality of life changes.
 
-First would be to rename `YT Download.py` to `YT-Download.py` in order to not have to type the quotation marks when launching the program. This can be done using a GUI, but to do it in the terminal first navigate to where YT Download is installed and then run this command.
+First would be to rename `YT Download.py` to `YT-Download.py` in order to not have to type quotation marks when launching the program. This can be done using a GUI, but to do it in the terminal first navigate to where YT Download is installed and then run this command.
 ```
 mv 'YT Download.py' YT-Download.py
 ```
@@ -86,16 +107,11 @@ Next, open the `~/.bashrc` file as sudo.
 ```
 sudo nano ~/.bashrc
 ```
-> If you don't have nano installed, you can install it with:  
->```
->sudo apt install nano
->```
 
 Navigate to the bottom of the file and add this line:
 ```
-export PATH="/home/%USER%/Desktop/YT-Download$PATH"
+export PATH="/home/%USER%/Desktop/YT-Download:$PATH"
 ```
-To save the file press `Ctrl+X` then press `y` and `enter`
 
 ## User Manual  
 After installing the program with the .msi or `winget`, open YT Download.
