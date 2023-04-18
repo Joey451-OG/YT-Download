@@ -99,10 +99,16 @@ First would be to rename `YT Download.py` to `YT-Download.py` in order to not ha
 mv 'YT Download.py' YT-Download.py
 ```
 
-Finally, it is very inconvenient to have to navigate to where YT Download was installed in order to launch it. To fix this, simple add the install directory to the PATH.
+Finally, it is very inconvenient to have to navigate to where YT Download was installed in order to launch it. To fix this, we need to make some modifications.
 
-First, note down which directory where YT Download is installed. For this example I will use `/home/%USER%/Desktop/YT-Download`.  
+First, open `main.py` with nano 
 
+Now, make two directories in the home folder. ALso, make a `python` directory in the lib folder.
+```
+cd ~
+mkdir bin lib
+mkdir lib/python
+```
 Next, open the `~/.bashrc` file as sudo.
 ```
 sudo nano ~/.bashrc
@@ -110,8 +116,12 @@ sudo nano ~/.bashrc
 
 Navigate to the bottom of the file and add this line:
 ```
-export PATH="/home/%USER%/Desktop/YT-Download:$PATH"
+PYTHONPATH=$HOME/lib/python
+EDITOR = nano
+
+export PYTHONPATH EDITOR
 ```
+
 
 ## User Manual  
 After installing the program with the .msi or `winget`, open YT Download.
