@@ -101,7 +101,11 @@ mv 'YT Download.py' YT-Download.py
 
 Finally, it is very inconvenient to have to navigate to where YT Download was installed in order to launch it. To fix this, we need to make some modifications.
 
-First, open `main.py` with nano 
+First, open `main.py` with nano.
+```
+nano main.py
+```
+Nagivate to the `config` class, it's at the top 
 
 Now, make two directories in the home folder. ALso, make a `python` directory in the lib folder.
 ```
