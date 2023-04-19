@@ -11,6 +11,7 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
 * [Installation](#installation)  
     * [Windows](#windows)  
     * [Linux](#linux)
+    * [Suggested Changes for Linux Users](#suggested-changes-for-linux-users)
 * [User Manual](#user-manual)  
     * [Launching on Linux](#launching-on-linux)
     * [Downloading Playlists](#downloading-playlists)
@@ -22,7 +23,8 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
 * [Credits](#credits)
 
 ## Change Log
-STILL IN DEV
+<!-- Working on 1.3.0, I have been procrastinating with this documentation lol - Joey. -->
+STILL IN DEV  
 
 ## Installation    
 ### Windows
@@ -151,7 +153,7 @@ export PYTHONPATH EDITOR
 ```
 You will need to sign-out/sign-in for these changes to take into effect.  
 
-Now navigate back into the directory where YT-Download is installed and move the following files to the new `/bin` file.
+Now navigate back into the directory where YT-Download is installed and move the following files to the new `/bin` directory.
 ```
 $ mv YT-Download.py ~/bin/
 $ mv main.py ~/bin/
