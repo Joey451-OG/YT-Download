@@ -33,59 +33,59 @@ Since YT Download does not yet have a linux binary, you'll need to clone this gi
 
 First, install git:
 ```
-sudo apt install git
+$ sudo apt install git
 ```  
 Next, install pip.  
 ```
-sudo apt install python3-pip
+$ sudo apt install python3-pip
 ```
 Make sure to navigate to the folder where you want YT Download to install to.  
 Then, clone this repo:
 ```
-git clone https://www.github.com/Joey451-OG/YT-Download
+$ git clone https://www.github.com/Joey451-OG/YT-Download
 ```
 Now it's time to install the dependencies.  
 First, install PySimpleGUI:
 ```
-pip install PySimpleGUI
+$ pip install PySimpleGUI
 ```
 Next, install Tkinter:
 ```
-sudo apt install python3-tk
+$ sudo apt install python3-tk
 ```
 Now, install yt-dlp:
 ```
-pip install yt-dlp
+$ pip install yt-dlp
 ```
 yt-dlp may not install to the PATH. To fix this, open `~/.bashrc` as `sudo`
 ```
-sudo nano ~/.bashrc
+$ sudo nano ~/.bashrc
 ```
 
 > If you don't have nano installed, you can install it with:  
 >```
->sudo apt install nano
+>$ sudo apt install nano
 >```
 
 Then add this line to the bottom of the file.
-```
-export PATH="/home/%USER%/.local/bin:$PATH"
+```bash
+export PATH="/home/YOUR_USERNAME_HERE/.local/bin:$PATH"
 ```
 
 To save the file press `Ctrl+X` then press `y` and `enter`  
 
 Then, source the `~/.bashrc` file.
 ```
-source ~/.bashrc
+$ source ~/.bashrc
 ```
 Finally, install FFmpeg:
 ```
-sudo apt install ffmpeg
+$ sudo apt install ffmpeg
 ```
 
 YT Download is now ready to use. To launch YT Download, use this command in the directory where this repo was cloned:
 ```
-python3 'YT Download.py'
+$ python3 'YT Download.py'
 ``` 
 
 The rest of the documentation still applies to linux. In rare instances where there are differences, there will be ample explanation.  
@@ -96,30 +96,54 @@ Even though YT Download is fully functional (given you have followed the tutoria
 
 First would be to rename `YT Download.py` to `YT-Download.py` in order to not have to type quotation marks when launching the program. This can be done using a GUI, but to do it in the terminal first navigate to where YT Download is installed and then run this command.
 ```
-mv 'YT Download.py' YT-Download.py
+$ mv 'YT Download.py' YT-Download.py
 ```
 
 Finally, it is very inconvenient to have to navigate to where YT Download was installed in order to launch it. To fix this, we need to make some modifications.
 
 First, open `main.py` with nano.
 ```
-nano main.py
+$ nano main.py
 ```
-Nagivate to the `config` class, it's at the top 
+Navigate to the `config` class, it's at the top of the script right underneath the license. Change `with open('config.yml', 'r') [...]` to `with open('/home/YOUR_USERNAME_HERE/bin/config.yml', 'r') [...]`.
 
+```python
+# Handles the config file
+class config:
+    def __init__(self) -> None:
+        with open('/home/YOUR_USERNAME_HERE/bin/config.yml', 'r') as file:
+            [...]
+```
+
+Save the file by pressing `Ctrl + X` then `y` then `enter`.  
+
+Next, open `YT-Download.py` with nano
+```
+$ nano YT-Download.py
+```
+Add this line to the very top of the file.
+```
+#!/usr/bin/env python3
+```
+Save the file.  
+
+Make the script executable by running this command.
+```
+$ chmod +x YT-Download.py
+```
 Now, make two directories in the home folder. ALso, make a `python` directory in the lib folder.
 ```
-cd ~
-mkdir bin lib
-mkdir lib/python
+$ cd ~
+$ mkdir bin lib
+$ mkdir lib/python
 ```
 Next, open the `~/.bashrc` file as sudo.
 ```
-sudo nano ~/.bashrc
+$ sudo nano ~/.bashrc
 ```
 
 Navigate to the bottom of the file and add this line:
-```
+```bash
 PYTHONPATH=$HOME/lib/python
 EDITOR = nano
 
