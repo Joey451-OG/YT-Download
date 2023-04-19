@@ -145,10 +145,26 @@ $ sudo nano ~/.bashrc
 Navigate to the bottom of the file and add this line:
 ```bash
 PYTHONPATH=$HOME/lib/python
-EDITOR = nano
+EDITOR=nano
 
 export PYTHONPATH EDITOR
 ```
+You will need to sign-out/sign-in for these changes to take into effect.  
+
+Now navigate back into the directory where YT-Download is installed and move the following files to the new `/bin` file.
+```
+$ mv YT-Download.py ~/bin/
+$ mv main.py ~/bin/
+$ mv config.yml ~/bin/
+$ mv logo.png ~/bin/
+```
+
+You are now done. To run YT-Download simply type this command.
+```
+$ YT-Download.py
+```
+
+> **Note:** You can delete the cloned repo directory since it is no longer needed.
 
 
 ## User Manual  
