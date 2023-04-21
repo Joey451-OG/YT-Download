@@ -8,6 +8,11 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
 
 ## Table of Contents  
 * [Change Log](#change-log)
+    * [Version 1.3.0](#version-130)
+    * [Version 1.2.1](#version-121)
+    * [Version 1.2.0](#version-120)
+    * [Version 1.0.1](#version-101)
+    * [Version 1.0.0](#version-100)
 * [Installation](#installation)  
     * [Windows](#windows)  
     * [Linux](#linux)
@@ -23,14 +28,14 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
 * [Credits](#credits)
 
 ## Change Log
-**Version 1.3.0**  
+### **Version 1.3.0**  
 - ➕ Added the ability to change settings through the [config](#changing-settings) file.  
 - ➕ Added Linux support and documentation.  
 - ➕ Revamped the documentation  
 - ➕ Added terminal messages that display program progress in the terminal.  
 - 🐛 Simplified the code base in order to make the source more readable.  
 
-**Version 1.2.1**
+### **Version 1.2.1**
 - 🐛 Fixed critical bug in .msi installer that deleted all other `PATH` variables when installing.  
 - ➕ Added detection system for YouTube Playlists.*  
 - ➕ Added a version number link that links to this repo.  
@@ -40,19 +45,19 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
 
 [QUICK PATCH 3/19/2023] Added LICENSE to the installation process. No functionality was changed, thus no new version number. Note, there may be another patch to the .msi if `winget` wants a truly admin perms free installation.
 
-**Version 1.2.0**  
+### **Version 1.2.0**  
 Changed the default file download path to `C:\Users\%userprofile%\Documents\YT Download` when the user does not specify a file location.  
 
 Cleaned the up `YT Download.py` while True loop and sent most of the logic to `GUI_checks()`.
 
 **CRITICAL BUG!!!!!** All previous .msi installers are removing **ALL OTHER `PATH` VARIABLES**. Please **DO NOT USE** old .msi installers (1.2.0 and below). Working on a patch ASAP.  
 
-**Version 1.0.1**  
+### **Version 1.0.1**  
 In the previous version, the included .msi installer was not adding FFmpeg (a required dependency) to the windows PATH, causing the program to crash when downloading. This has been fixed. None of the underline source code has been changed. Once again, thank you for using YT Download.
 
 **CRITICAL BUG**: SEE VERSION 1.2.0
 
-**Version 1.0.0**  
+### **Version 1.0.0**  
 Welcome to YT Download! To start, simply install the program with the .msi installer. You can also download the source code.
 NOTE: Removed the original .msi installer. Currently working on a new one. The old installer was not installing FFmpeg to the path. Once I fix that, I'll release a new installer. For now, please uninstall YT Download with the original .msi installer. You can still run YT Download from source if you meet all of the prerequisites. For a full list of prerequisites, check [Credits.txt](https://github.com/Joey451-OG/YT-Dowload/blob/master/Credits.txt) - Joey [3/5/2023]
 
