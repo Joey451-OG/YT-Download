@@ -23,8 +23,11 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
 * [Credits](#credits)
 
 ## Change Log
-<!-- Working on 1.3.0, I have been procrastinating with this documentation lol - Joey. -->
-STILL IN DEV  
+➕ Added the ability to change settings through the [config](#changing-settings) file.  
+➕ Added Linux support and documentation.  
+➕ Revamped the documentation  
+➕ Added terminal messages that display program progress in the terminal.  
+🐛 Simplified the code base in order to make the source more readable.  
 
 ## Installation    
 ### Windows
