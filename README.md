@@ -59,7 +59,7 @@ In the previous version, the included .msi installer was not adding FFmpeg (a re
 
 ### **Version 1.0.0**  
 Welcome to YT Download! To start, simply install the program with the .msi installer. You can also download the source code.
-NOTE: Removed the original .msi installer. Currently working on a new one. The old installer was not installing FFmpeg to the path. Once I fix that, I'll release a new installer. For now, please uninstall YT Download with the original .msi installer. You can still run YT Download from source if you meet all of the prerequisites. For a full list of prerequisites, check [Credits.txt](https://github.com/Joey451-OG/YT-Dowload/blob/master/Credits.txt) - Joey [3/5/2023]
+NOTE: Removed the original .msi installer. Currently working on a new one. The old installer was not installing FFmpeg to the path. Once I fix that, I'll release a new installer. For now, please uninstall YT Download with the original .msi installer. You can still run YT Download from source if you meet all of the prerequisites. For a full list of prerequisites, check Credits.txt - Joey [3/5/2023]
 
 ## Installation    
 ### Windows
