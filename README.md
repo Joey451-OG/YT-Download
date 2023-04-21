@@ -210,7 +210,14 @@ After installing the program with the .msi or `winget`, open YT Download.
 <img width="600" alt="opening" src="https://user-images.githubusercontent.com/60891047/225435630-903ae087-debf-4dbf-919b-db6555c6c089.png">  
 
 > ### Launching on Linux
-> STILL IN DEV
+> Nagivate to the directory where YT Download is installed and run:
+>```
+>$ python3 'YT Download.py'
+>```
+>Or, if you have followed [Suggested Changes for Linux Users](#suggested-changes-for-linux-users) you can run this command from any directory
+>```
+>$ YT-Download.py
+>```  
 
 The program will open a terminal window and the GUI. Do not close the terminal, it is required for the program to run.
 
