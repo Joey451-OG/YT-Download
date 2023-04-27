@@ -18,18 +18,12 @@ YT Download. A simple GUI wrapper for yt-dlp.
 '''
 
 from yt_dlp import YoutubeDL, utils
-from sys import platform
 import yaml
 
 # Handles the config file
 class config:
     def __init__(self) -> None:
-        # Check if YT-Download is running on windows and change config file path.
-        config_path = 'config.yml'
-        if platform == 'win32':
-            config_path = r'%PROGRAMDATA%\\YT Download\\config.yml'
-
-        with open(config_path, 'r') as file:
+        with open('config.yml', 'r') as file:
             self.cfg = yaml.load(file, Loader=yaml.FullLoader)
             # Directory Settings
             self.use_default_directory = self.cfg['use_default_directory']
