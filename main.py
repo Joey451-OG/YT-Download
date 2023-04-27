@@ -20,26 +20,7 @@ YT Download. A simple GUI wrapper for yt-dlp.
 from yt_dlp import YoutubeDL, utils
 from sys import platform
 import yaml
-
-# Handles the config file
-class config:
-    def __init__(self) -> None:
-        # Check if YT-Download is running on windows and change config file path.
-        config_path = 'config.yml'
-        if platform == 'win32':
-            config_path = r'%PROGRAMDATA%\\YT Download\\config.yml'
-
-        with open(config_path, 'r') as file:
-            self.cfg = yaml.load(file, Loader=yaml.FullLoader)
-            # Directory Settings
-            self.use_default_directory = self.cfg['use_default_directory']
-            self.custom_default_directory = self.cfg['custom_default_directory']
-            # Popup Settings
-            self.playlist_confirmation = self.cfg['playlist_confirmation']
-            self.file_downloaded = self.cfg['file_downloaded']
-            # Miscellaneous Settings
-            self.default_as_audio = self.cfg['default_as_audio']
-            self.color_theme = self.cfg['color_theme']
+import os
 
 video_options = {
     # Download the best mp4 video available, or the best video if no mp4 available ["..." COPIED FROM: https://github.com/yt-dlp/yt-dlp#format-selection-examples]
@@ -53,6 +34,54 @@ audio_options = {
         'preferredcodec': 'mp3'
     }]
 }
+
+default_config_state = {
+    'Directory_Settings': {
+        'use_default_directory': True,
+        'custom_default_directory': 'paste\custom\default\directory\path\here'
+    },
+
+    'Popup_Settings': {
+        'playlist_confirmation': True,
+        'file_downloaded': True    
+    },
+
+    'Miscellaneous_Settings': {
+        'default_as_audio': False,
+        'color_theme': 'DarkAmber'
+    }
+}
+
+# Handles the config file
+class config:
+    def __init__(self) -> None:
+        # Check if YT-Download is running on windows and change config file path.
+        config_path = 'config.yml'
+        if platform == 'win32':
+            config_path = r'%PROGRAMDATA%\\YT Download\\config.yml'
+
+        if os.path.exists(config_path):
+            # Update config file while not overwriting the entire file.
+            with open(config_path, 'r+') as file:
+                current_config = yaml.load(file, Loader=yaml.FullLoader)
+                if len(current_config) != len(default_config_state):
+                    
+        else:
+            # Config file does not exist, write the config file with default configuration.
+            with open(config_path, 'w') as file:
+                file.write(yaml.dump(default_config_state))
+        
+        with open(config_path, 'r') as file:
+            self.cfg = yaml.load(file, Loader=yaml.FullLoader)
+            # Directory Settings
+            self.use_default_directory = self.cfg['use_default_directory']
+            self.custom_default_directory = self.cfg['custom_default_directory']
+            # Popup Settings
+            self.playlist_confirmation = self.cfg['playlist_confirmation']
+            self.file_downloaded = self.cfg['file_downloaded']
+            # Miscellaneous Settings
+            self.default_as_audio = self.cfg['default_as_audio']
+            self.color_theme = self.cfg['color_theme']
 
 
 # Handles downloading and retrieving information
