@@ -64,7 +64,9 @@ class config:
             # Update config file while not overwriting the entire file.
             with open(config_path, 'r+') as file:
                 current_config = yaml.load(file, Loader=yaml.FullLoader)
-                if len(current_config) != len(default_config_state):
+                for item in default_config_state:
+                    if item not in current_config:
+                        current_config[item]
                     
         else:
             # Config file does not exist, write the config file with default configuration.
