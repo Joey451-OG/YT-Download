@@ -30,7 +30,7 @@ sg.theme(cfg.color_theme) # Color Scheme
 downloader.terminal_msgs(0, 1)
 if cfg.use_default_directory:  
     if platform == 'win32':
-        user_dir = os.environ['USERPROFILE'] + '\Documents\YT Download'
+        user_dir = cfg.check_for_OneDrive()
         logo = 'logo.ico'
     if platform == 'linux' or platform == 'linux2':
         user_dir = '~/Documents/YT-Download'
@@ -52,7 +52,7 @@ layout = [ [sg.Text("Thank you for using YT Download!")],
            [sg.Text('File path. Leave blank to save download to:')],
            [sg.Text(f'{user_dir}')],
            [sg.Input(key='DIR'), sg.FolderBrowse()],
-           [sg.Button('Download'), sg.Cancel(), sg.Text('Version: 1.3.0', tooltip='https://github.com/Joey451-OG/YT-Dowload', enable_events=True, key='GITHUB', font=font)]
+           [sg.Button('Download'), sg.Cancel(), sg.Text(f'Version: {cfg.version}', tooltip='https://github.com/Joey451-OG/YT-Dowload', enable_events=True, key='GITHUB', font=font)]
     ]
 
 # Main logic function. Calls the appropriate functions in main.py and handles input errors.

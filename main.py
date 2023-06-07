@@ -22,6 +22,8 @@ from sys import platform
 import yaml
 import os
 
+config_path = 'config.yml'
+
 video_options = {
     # Download the best mp4 video available, or the best video if no mp4 available ["..." COPIED FROM: https://github.com/yt-dlp/yt-dlp#format-selection-examples]
     'format': "bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b"
@@ -35,7 +37,9 @@ audio_options = {
     }]
 }
 
-default_config_state = {
+default_config = {
+    'version': '1.3.0',
+
     'Directory_Settings': {
         'use_default_directory': True,
         'custom_default_directory': 'paste\custom\default\directory\path\here'
@@ -50,41 +54,59 @@ default_config_state = {
         'default_as_audio': False,
         'color_theme': 'DarkAmber'
     }
-}
+    }
 
 # Handles the config file
 class config:
     def __init__(self) -> None:
         # Check if YT-Download is running on windows and change config file path.
         config_path = 'config.yml'
+        update_file = False
+        
         if platform == 'win32':
-            config_path = r'%PROGRAMDATA%\\YT Download\\config.yml'
+            config_path = self.check_for_OneDrive()
+            if not os.path.exists(config_path):
+                os.makedirs(config_path)
+                with open(config_path + r'\\config.yml', 'w') as file:
+                    yaml.dump(default_config, file, sort_keys=False)
+                file.close()
 
-        if os.path.exists(config_path):
-            # Update config file while not overwriting the entire file.
-            with open(config_path, 'r+') as file:
-                current_config = yaml.load(file, Loader=yaml.FullLoader)
-                for item in default_config_state:
-                    if item not in current_config:
-                        current_config[item]
-                    
-        else:
-            # Config file does not exist, write the config file with default configuration.
-            with open(config_path, 'w') as file:
-                file.write(yaml.dump(default_config_state))
+            config_path = config_path + r'\\config.yml'
         
         with open(config_path, 'r') as file:
-            self.cfg = yaml.load(file, Loader=yaml.FullLoader)
-            # Directory Settings
-            self.use_default_directory = self.cfg['use_default_directory']
-            self.custom_default_directory = self.cfg['custom_default_directory']
-            # Popup Settings
-            self.playlist_confirmation = self.cfg['playlist_confirmation']
-            self.file_downloaded = self.cfg['file_downloaded']
-            # Miscellaneous Settings
-            self.default_as_audio = self.cfg['default_as_audio']
-            self.color_theme = self.cfg['color_theme']
+            cfg = yaml.load(file, yaml.FullLoader)
+            if cfg['version'] != default_config['version']:
+                for item in default_config.keys():
+                    if item not in cfg.keys():
+                        cfg[item] = default_config[item]
+                        update_file = True
+        
+                cfg['version'] = default_config['version']
+            file.close()
 
+            if update_file:
+                with open(config_path, 'w') as file:
+                    yaml.dump(cfg, file, sort_keys=False)
+                file.close()
+        
+        with open(config_path, 'r') as file:
+            cfg = yaml.load(file, Loader=yaml.FullLoader)
+            # Directory Settings
+            self.use_default_directory = cfg['Directory_Settings']['use_default_directory']
+            self.custom_default_directory = cfg['Directory_Settings']['custom_default_directory']
+            # Popup Settings
+            self.playlist_confirmation = cfg['Popup_Settings']['playlist_confirmation']
+            self.file_downloaded = cfg['Popup_Settings']['file_downloaded']
+            # Miscellaneous Settings
+            self.default_as_audio = cfg['Miscellaneous_Settings']['default_as_audio']
+            self.color_theme = cfg['Miscellaneous_Settings']['color_theme']
+            self.version = cfg['version']
+    
+    def check_for_OneDrive(self):
+        if os.path.exists(r'%USERPROFILE%\\OneDrive'):
+            return r'%USERPROFILE%\\OneDrive\\Documents\\YT Download'
+        else:
+            return r'%USERPROFILE\\Documents\\YT Download'
 
 # Handles downloading and retrieving information
 def YoutubeDownloader(settings: dict, url: str):
