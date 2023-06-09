@@ -20,7 +20,6 @@ YT Download. A simple GUI wrapper for yt-dlp.
 import PySimpleGUI as sg
 import main as downloader
 import webbrowser as web
-import os
 from sys import platform
 cfg = downloader.config()
 downloader.terminal_msgs(0, 0)
