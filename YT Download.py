@@ -52,7 +52,7 @@ layout = [ [sg.Text("Thank you for using YT Download!")],
            [sg.Text('File path. Leave blank to save download to:')],
            [sg.Text(f'{user_dir}')],
            [sg.Input(key='DIR'), sg.FolderBrowse()],
-           [sg.Button('Download'), sg.Cancel(), sg.Text(f'Version: {cfg.version}', tooltip='https://github.com/Joey451-OG/YT-Dowload', enable_events=True, key='GITHUB', font=font)]
+           [sg.Button('Download'), sg.Cancel(button_text='Exit'), sg.Text(f'Version: {cfg.version}', tooltip='https://github.com/Joey451-OG/YT-Dowload', enable_events=True, key='GITHUB', font=font)]
     ]
 
 # Main logic function. Calls the appropriate functions in main.py and handles input errors.

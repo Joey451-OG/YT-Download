@@ -67,9 +67,11 @@ class config:
             config_path = self.check_for_OneDrive()
             if not os.path.exists(config_path):
                 os.makedirs(config_path)
-                with open(config_path + r'\\config.yml', 'w') as file:
-                    yaml.dump(default_config, file, sort_keys=False)
-                file.close()
+
+            if not os.path.exists(config_path + '\\config.yml'):
+                with open(config_path + '\\config.yml', 'w') as file:
+                    yaml.dump(default_config, file, sort_keys=False)    
+                file.close()        
 
             config_path = config_path + r'\\config.yml'
         
@@ -103,10 +105,11 @@ class config:
             self.version = cfg['version']
     
     def check_for_OneDrive(self):
-        if os.path.exists(r'%USERPROFILE%\\OneDrive'):
-            return r'%USERPROFILE%\\OneDrive\\Documents\\YT Download'
+        userprofile = os.getenv('USERPROFILE')
+        if os.path.exists(f'{userprofile}\\OneDrive'):
+            return f'{userprofile}\\OneDrive\\Documents\\YT Download'
         else:
-            return r'%USERPROFILE\\Documents\\YT Download'
+            return f'{userprofile}\\Documents\\YT Download'
 
 # Handles downloading and retrieving information
 def YoutubeDownloader(settings: dict, url: str):
