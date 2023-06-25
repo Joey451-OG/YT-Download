@@ -49,9 +49,9 @@ layout = [ [sg.Text("Thank you for using YT Download!")],
            [sg.Text("YouTube URL:"), sg.InputText(key='URL')],
            [sg.Checkbox('Download as an audio file (mp3)?', default=cfg.default_as_audio, key='isAudio')],
            [sg.Text('File path. Leave blank to save download to:')],
-           [sg.Text(f'{user_dir}')],
+           [sg.Text(user_dir)],
            [sg.Input(key='DIR'), sg.FolderBrowse()],
-           [sg.Button('Download'), sg.Cancel(button_text='Exit'), sg.Text(f'Version: {cfg.version}', tooltip='https://github.com/Joey451-OG/YT-Dowload', enable_events=True, key='GITHUB', font=font)]
+           [sg.Button('Download'), sg.Button('Settings'), sg.Cancel(button_text='Exit'), sg.Push(), sg.Text(f'Version: {cfg.version}', tooltip='https://github.com/Joey451-OG/YT-Download', enable_events=True, key='GITHUB', font=font)]
     ]
 
 # Main logic function. Calls the appropriate functions in main.py and handles input errors.
@@ -118,14 +118,20 @@ window = sg.Window('YT Download', layout, icon=logo)
 while True:
     
     playlist_layout = [
-        [sg.Text('You are trying to download a Playlist. Do you want to continue?')],
-        [sg.Button('Yes'), sg.Button('No')]
+        [sg.Push(), sg.Text('You are trying to download a Playlist. Do you want to continue?'), sg.Push()],
+        [sg.Push(), sg.Button('Yes'), sg.Button('No'), sg.Push()]
+    ]
+
+    settings_layout = [
+        [sg.Push(), sg.Text('Settings Menu'), sg.Push()],
+        [sg.Checkbox('Use default directory', default=cfg.default_as_audio)],
+        [sg.Input(disabled=not cfg.default_as_audio), sg.FolderBrowse(disabled= not cfg.default_as_audio)]
     ]
 
     event, values = window.read() # Check the active event and the value dictionary.
     print(event, values) # Print event and values for debugging in the command line.
 
-    if event == sg.WIN_CLOSED or event == 'Cancel': # Break the loop if the window is closed or the 'Cancel' button is pressed
+    if event == sg.WIN_CLOSED or event == 'Exit': # Break the loop if the window is closed or the 'Cancel' button is pressed
         break
     
     if event == 'GITHUB': # If the linked is clicked, open the GitHub repo.
