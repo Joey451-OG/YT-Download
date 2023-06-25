@@ -261,20 +261,21 @@ Once your file is done downloading, a popup will appear showing the title of the
 
 This is the default state of `config.yml`
 ```yaml
-# Directory Settings
-use_default_directory: yes
-custom_default_directory: paste\custom\default\directory\path\here
-
-# Popup Settings
-playlist_confirmation: yes
-file_downloaded: yes
-
-# Miscellaneous Settings
-default_as_audio: no
-color_theme: DarkAmber # For a full list of available themes, see 'themes.png' in YT Download's install location
+version: 1.3.0
+Directory_Settings:
+  use_default_directory: true
+  custom_default_directory: paste\custom\default\directory\path\here
+Popup_Settings:
+  playlist_confirmation: true
+  file_downloaded: true
+Miscellaneous_Settings:
+  default_as_audio: false
+  color_theme: DarkAmber
 ```
 
-The config file is broken up into three sub-sections: `Directory Settings`, `Popup Settings`, and `Miscellaneous Settings`. [Directory Settings](#directory-settings) controls how YT Download handles directories, [Popup Settings](#popup-settings) handles how YT Download uses popups, and [Miscellaneous Settings](#miscellaneous-settings) controls... well.. miscellaneous settings such as YT Download's color theme.  
+The config file is broken up into three sub-sections: `Directory Settings`, `Popup Settings`, and `Miscellaneous Settings`. [Directory Settings](#directory-settings) controls how YT Download handles directories, [Popup Settings](#popup-settings) handles how YT Download uses popups, and [Miscellaneous Settings](#miscellaneous-settings) controls... well.. miscellaneous settings such as YT Download's color theme.
+
+>Note: The `version` variable is used to display the version number on the main window. Please do not change this variable.
 
 ### Directory Settings
 As stated previously, `Directory Settings` controls how YT Download handles directories.  
@@ -286,7 +287,7 @@ If *yes* YT Download will use the default directory. For windows users the defau
 Whatever directory path that is inputted here will be used as the default directory if 
 `use_default_directory` is *no*.  
 
-> Note: One common mistake when using this feature is not typing the directory in properly. The author strongly recommends pasting the directory path into this field. However, if one is unable to do such, remember to use backslashes ( `\` ) for windows and forward slashes ( `/` ) for linux. If the directory is inputted incorrectly, YT Download will make a new directory in the program's root directory.  
+> Note: One common mistake when using this feature is not typing the directory in properly. The author strongly recommends pasting a directory path into this field. However, if one is unable to do such, remember to use backslashes ( `\` ) for windows and forward slashes ( `/` ) for linux. If the directory is inputted incorrectly, YT Download will make a new directory in the program's root directory.  
   
 ### Popup Settings
 `Popup Settings` handles which popups YT Download shows.
@@ -332,6 +333,10 @@ YT-DLP: https://github.com/yt-dlp/yt-dlp
 PySimpleGUI: https://github.com/PySimpleGUI/PySimpleGUI
 
 FFmpeg: https://ffmpeg.org/
+
+PyYAML: https://github.com/yaml/pyyaml  
+
+YAML: https://yaml.org/  
 
 Thank you for using YT Download!
 
