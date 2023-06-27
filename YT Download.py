@@ -27,7 +27,7 @@ sg.theme(cfg.color_theme) # Color Scheme
 
 # OS based default directory lookup
 downloader.terminal_msgs(0, 1)
-if cfg.use_default_directory:  
+if cfg.use_default_directory or (not cfg.use_default_directory and cfg.custom_default_directory == ''):  
     if platform == 'win32':
         user_dir = cfg.check_for_OneDrive()
         logo = 'logo.ico'
@@ -127,7 +127,9 @@ def settings_menu():
             setting_list = list(s_value.values())
             cfg.update_config_file(setting_list)
             cfg.update_class_vars()
-            pass
+            settings_window.close()
+            sg.popup('Restarting YT Download in five seconds... \nClick OK to restart now.',title='YT Download', auto_close=True, auto_close_duration=5, icon=logo)
+            window.close()
 
 # Main setup loop. Calls GUI_checks()
 downloader.terminal_msgs(0, 2)
@@ -144,8 +146,8 @@ while True:
         [sg.Push(), sg.Text('~' * 15), sg.Push()],
         [sg.Text('Directory Settings'), sg.HorizontalSeparator(pad=(10, 5))],
         [sg.Checkbox('Use default directory', default=cfg.use_default_directory)],
-        [sg.Text('Custom default directory:')],
-        [sg.Input(disabled=cfg.use_default_directory), sg.FolderBrowse(disabled=cfg.use_default_directory)],
+        [sg.Text('Custom default directory:', tooltip='Custom default directory will not be used if USE DEFAULT DIRECTORY is checked')],
+        [sg.Input(tooltip='Custom default directory will not be used if USE DEFAULT DIRECTORY is checked'), sg.FolderBrowse(tooltip='Custom default directory will not be used if USE DEFAULT DIRECTORY is checked')],
         [sg.Text('Popup Settings'), sg.HorizontalSeparator(pad=(10, 5))],
         [sg.Checkbox('Show playlist confirmation popup', default=cfg.playlist_confirmation)],
         [sg.Checkbox('Show file downloaded popup', default=cfg.file_downloaded)],
@@ -153,7 +155,7 @@ while True:
         [sg.Checkbox('Download as .mp3 by default', default=cfg.default_as_audio)],
         [sg.Text('Color Theme:'), sg.Combo(sg.theme_list(), default_value=cfg.color_theme)],
         [sg.Push(), sg.Text('~' * 15), sg.Push()],
-        [sg.Button('Apply'), sg.Push(), sg.Button('Exit')]
+        [sg.Button('Apply', tooltip='YT Download will restart in order to apply your changes'), sg.Push(), sg.Button('Exit', tooltip='Exiting will not save any changes')]
 
     ]
 
@@ -170,6 +172,6 @@ while True:
         GUI_checks(values['isAudio'], values['URL'], values['DIR'])
     
     if event == 'Settings':
-        settings_menu()
+        event = settings_menu()
 
 window.close() # Kill the program
