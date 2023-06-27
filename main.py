@@ -38,7 +38,7 @@ audio_options = {
 }
 
 default_config = {
-    'version': '1.3.0',
+    'version': '1.3.1',
 
     'Directory_Settings': {
         'use_default_directory': True,
@@ -59,40 +59,43 @@ default_config = {
 # Handles the config file
 class config:
     def __init__(self) -> None:
-        # Check if YT-Download is running on windows and change config file path.
+        
         self.config_path = 'config.yml'
         update_file = False
         
-        if platform == 'win32':
+        if platform == 'win32': # Check if YT-Download is running on windows and change config file path.
             self.config_path = self.check_for_OneDrive()
             if not os.path.exists(self.config_path):
                 os.makedirs(self.config_path)
 
-            if not os.path.exists(self.config_path + '\\config.yml'):
+            if not os.path.exists(self.config_path + '\\config.yml'): # Write the config file using default config settings if the file does not exist.
                 with open(self.config_path + '\\config.yml', 'w') as file:
                     yaml.dump(default_config, file, sort_keys=False)    
                 file.close()        
 
-            self.config_path = self.config_path + r'\\config.yml'
+            self.config_path = self.config_path + r'\\config.yml' # Update self.config_path to point to the actual config file
         
         with open(self.config_path, 'r') as file:
+            # Update config file if version numbers differ
             cfg = yaml.load(file, yaml.FullLoader)
-            if cfg['version'] != default_config['version']:
+            if cfg['version'] != default_config['version']: 
+                cfg['version'] = default_config['version'] # Update the version number
                 for item in default_config.keys():
-                    if item not in cfg.keys():
+                    if item not in cfg.keys(): # Only add new settings to the config file. This maintains any settings the user has made before updating.
                         cfg[item] = default_config[item]
-                        update_file = True
+                        update_file = True # Allows the updated config to be dumped to the file
         
                 cfg['version'] = default_config['version']
             file.close()
 
-            if update_file:
+            if update_file: # Dump the new settings
                 with open(self.config_path, 'w') as file:
                     yaml.dump(cfg, file, sort_keys=False)
                 file.close()
         
         self.update_class_vars()
-
+    
+    # Sets and dumps the new changes made by a user in the Settings Menu (see YT Download.py)
     def update_config_file(self, settings_list: list) -> None:
         with open(self.config_path, 'r') as file:
             cfg = yaml.load(file, Loader=yaml.FullLoader)
@@ -110,8 +113,9 @@ class config:
         with open(self.config_path, 'w') as file:
             yaml.dump(cfg, file, sort_keys=False)
         file.close()
-
-    def update_class_vars(self) -> None:
+    
+    # Update class variables so they can be used elsewhere
+    def update_class_vars(self) -> None: 
         with open(self.config_path, 'r') as file:
             cfg = yaml.load(file, Loader=yaml.FullLoader)
             # Directory Settings
@@ -127,7 +131,8 @@ class config:
 
             file.close()
     
-    def check_for_OneDrive(self) -> str:
+    # Check if the OneDrive folder exists and return the actual Documents path (WINDOWS ONLY)
+    def check_for_OneDrive(self) -> str: 
         userprofile = os.getenv('USERPROFILE')
         if os.path.exists(f'{userprofile}\\OneDrive'):
             return f'{userprofile}\\OneDrive\\Documents\\YT Download'

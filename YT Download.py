@@ -21,6 +21,7 @@ import PySimpleGUI as sg
 import main as downloader
 import webbrowser as web
 from sys import platform
+
 cfg = downloader.config()
 downloader.terminal_msgs(0, 0)
 sg.theme(cfg.color_theme) # Color Scheme
@@ -109,21 +110,19 @@ def GUI_checks(audio_val: str, url_val: str, dir_val: str):
                 elif cfg.file_downloaded: # Downloaded confirmation popup
                     sg.popup(f'Downloaded {title} as a {file_type} file to {dir_val}', icon=logo, title='YT Download')
             
-
+# Main logic behind the settings menu window. Calls appropriate functions in main.py.
 def settings_menu():
     print(f'\n\n{"x" * 10}\nNOW ENTERING SETTINGS MENU. ALL EVENT/VALUE PAIRS ARE SPECIFIC TO THE SETTINGS WINDOW.\n{"x" * 10}\n\n')
     settings_window = sg.Window('YT Download', settings_layout, icon=logo)
     while True:
-        sg.theme(cfg.color_theme) # Update color scheme to reflect changes
         s_event, s_value = settings_window.read()
         print(s_event, s_value)
 
-        if s_event == sg.WIN_CLOSED or s_event == 'Exit':
-            # NOTE: find a way to warn the user of unsaved changes when closing the settings window
+        if s_event == sg.WIN_CLOSED or s_event == 'Exit': # Check to see if the user closes the settings window or clicks the EXIT button
             settings_window.close()
             break
-        if s_event == 'Apply':
-            s_value.pop('Browse')
+        if s_event == 'Apply': # Check to see if the user clicks the APPLY button
+            s_value.pop('Browse') # Remove the data associated with the BROWSE key. This is duplicate information as the INPUT (key: 2) field. Since the INPUT field can be used independently of BROWSE, we keep it.
             setting_list = list(s_value.values())
             cfg.update_config_file(setting_list)
             cfg.update_class_vars()
@@ -136,11 +135,13 @@ downloader.terminal_msgs(0, 2)
 window = sg.Window('YT Download', layout, icon=logo)
 while True:
     
+    # Playlist Layout
     playlist_layout = [
         [sg.Push(), sg.Text('You are trying to download a Playlist. Do you want to continue?'), sg.Push()],
         [sg.Push(), sg.Button('Yes'), sg.Button('No'), sg.Push()]
     ]
 
+    # Settings Menu Layout
     settings_layout = [
         [sg.Push(), sg.Text('Settings Menu'), sg.Push()],
         [sg.Push(), sg.Text('~' * 15), sg.Push()],
@@ -168,10 +169,10 @@ while True:
     if event == 'GITHUB': # If the linked is clicked, open the GitHub repo.
         web.open("https://github.com/Joey451-OG/YT-Dowload")
 
-    if event == 'Download': # Was the Download button pressed?
+    if event == 'Download': # If the Download button was clicked, being file download
         GUI_checks(values['isAudio'], values['URL'], values['DIR'])
     
-    if event == 'Settings':
-        event = settings_menu()
+    if event == 'Settings': # If the Settings button is clicked, open the settings Menu
+        settings_menu()
 
 window.close() # Kill the program
