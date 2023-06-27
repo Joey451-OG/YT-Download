@@ -66,9 +66,9 @@ class config:
         if platform == 'win32': # Check if YT-Download is running on windows and change config file path.
             self.config_path = self.check_for_OneDrive()
             if not os.path.exists(self.config_path):
-                os.makedirs(self.config_path)
-                self.config_path = self.config_path + r'\\config.yml' # Update self.config_path to point to the actual config file
-
+                os.makedirs(self.config_path)    
+            self.config_path = self.config_path + r'\\config.yml' # Update self.config_path to point to the actual config file
+        
         if not os.path.exists(self.config_path): # Write the config file using default config settings if the file does not exist.
             with open(self.config_path, 'w') as file:    
                 yaml.dump(default_config, file, sort_keys=False)        
