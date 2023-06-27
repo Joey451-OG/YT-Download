@@ -38,7 +38,7 @@ audio_options = {
 }
 
 default_config = {
-    'version': '1.3.1',
+    'version': '1.4.0',
 
     'Directory_Settings': {
         'use_default_directory': True,
