@@ -78,14 +78,13 @@ class config:
         with open(self.config_path, 'r') as file:
             # Update config file if version numbers differ
             cfg = yaml.load(file, yaml.FullLoader)
-            if cfg['version'] != default_config['version']: 
-                cfg['version'] = default_config['version'] # Update the version number
+            if cfg['version'] != default_config['version']:
+                update_file = True # Allows the updated config to be dumped to the file 
                 for item in default_config.keys():
                     if item not in cfg.keys(): # Only add new settings to the config file. This maintains any settings the user has made before updating.
                         cfg[item] = default_config[item]
-                        update_file = True # Allows the updated config to be dumped to the file
         
-                cfg['version'] = default_config['version']
+                cfg['version'] = default_config['version'] # Update the version number
             file.close()
 
             if update_file: # Dump the new settings
