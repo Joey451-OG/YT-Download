@@ -43,7 +43,6 @@ else:
 
 font = (None, 10, 'underline')
 
-
 # GUI layout
 layout = [ [sg.Text("Thank you for using YT Download!")],
            [sg.Text("YouTube URL:"), sg.InputText(key='URL')],
@@ -56,7 +55,6 @@ layout = [ [sg.Text("Thank you for using YT Download!")],
 
 # Main logic function. Calls the appropriate functions in main.py and handles input errors.
 def GUI_checks(audio_val: str, url_val: str, dir_val: str):
-    
     
     download = True
     
@@ -112,6 +110,25 @@ def GUI_checks(audio_val: str, url_val: str, dir_val: str):
                     sg.popup(f'Downloaded {title} as a {file_type} file to {dir_val}', icon=logo, title='YT Download')
             
 
+def settings_menu():
+    print(f'\n\n{"x" * 10}\nNOW ENTERING SETTINGS MENU. ALL EVENT/VALUE PAIRS ARE SPECIFIC TO THE SETTINGS WINDOW.\n{"x" * 10}\n\n')
+    settings_window = sg.Window('YT Download', settings_layout, icon=logo)
+    while True:
+        sg.theme(cfg.color_theme) # Update color scheme to reflect changes
+        s_event, s_value = settings_window.read()
+        print(s_event, s_value)
+
+        if s_event == sg.WIN_CLOSED or s_event == 'Exit':
+            # NOTE: find a way to warn the user of unsaved changes when closing the settings window
+            settings_window.close()
+            break
+        if s_event == 'Apply':
+            s_value.pop('Browse')
+            setting_list = list(s_value.values())
+            cfg.update_config_file(setting_list)
+            cfg.update_class_vars()
+            pass
+
 # Main setup loop. Calls GUI_checks()
 downloader.terminal_msgs(0, 2)
 window = sg.Window('YT Download', layout, icon=logo)
@@ -124,8 +141,20 @@ while True:
 
     settings_layout = [
         [sg.Push(), sg.Text('Settings Menu'), sg.Push()],
-        [sg.Checkbox('Use default directory', default=cfg.default_as_audio)],
-        [sg.Input(disabled=not cfg.default_as_audio), sg.FolderBrowse(disabled= not cfg.default_as_audio)]
+        [sg.Push(), sg.Text('~' * 15), sg.Push()],
+        [sg.Text('Directory Settings'), sg.HorizontalSeparator(pad=(10, 5))],
+        [sg.Checkbox('Use default directory', default=cfg.use_default_directory)],
+        [sg.Text('Custom default directory:')],
+        [sg.Input(disabled=cfg.use_default_directory), sg.FolderBrowse(disabled=cfg.use_default_directory)],
+        [sg.Text('Popup Settings'), sg.HorizontalSeparator(pad=(10, 5))],
+        [sg.Checkbox('Show playlist confirmation popup', default=cfg.playlist_confirmation)],
+        [sg.Checkbox('Show file downloaded popup', default=cfg.file_downloaded)],
+        [sg.Text('Miscellaneous Settings'), sg.HorizontalSeparator(pad=(10, 5))],
+        [sg.Checkbox('Download as .mp3 by default', default=cfg.default_as_audio)],
+        [sg.Text('Color Theme:'), sg.Combo(sg.theme_list(), default_value=cfg.color_theme)],
+        [sg.Push(), sg.Text('~' * 15), sg.Push()],
+        [sg.Button('Apply'), sg.Push(), sg.Button('Exit')]
+
     ]
 
     event, values = window.read() # Check the active event and the value dictionary.
@@ -139,5 +168,8 @@ while True:
 
     if event == 'Download': # Was the Download button pressed?
         GUI_checks(values['isAudio'], values['URL'], values['DIR'])
+    
+    if event == 'Settings':
+        settings_menu()
 
 window.close() # Kill the program

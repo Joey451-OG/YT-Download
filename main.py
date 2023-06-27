@@ -60,22 +60,22 @@ default_config = {
 class config:
     def __init__(self) -> None:
         # Check if YT-Download is running on windows and change config file path.
-        config_path = 'config.yml'
+        self.config_path = 'config.yml'
         update_file = False
         
         if platform == 'win32':
-            config_path = self.check_for_OneDrive()
-            if not os.path.exists(config_path):
-                os.makedirs(config_path)
+            self.config_path = self.check_for_OneDrive()
+            if not os.path.exists(self.config_path):
+                os.makedirs(self.config_path)
 
-            if not os.path.exists(config_path + '\\config.yml'):
-                with open(config_path + '\\config.yml', 'w') as file:
+            if not os.path.exists(self.config_path + '\\config.yml'):
+                with open(self.config_path + '\\config.yml', 'w') as file:
                     yaml.dump(default_config, file, sort_keys=False)    
                 file.close()        
 
-            config_path = config_path + r'\\config.yml'
+            self.config_path = self.config_path + r'\\config.yml'
         
-        with open(config_path, 'r') as file:
+        with open(self.config_path, 'r') as file:
             cfg = yaml.load(file, yaml.FullLoader)
             if cfg['version'] != default_config['version']:
                 for item in default_config.keys():
@@ -87,11 +87,32 @@ class config:
             file.close()
 
             if update_file:
-                with open(config_path, 'w') as file:
+                with open(self.config_path, 'w') as file:
                     yaml.dump(cfg, file, sort_keys=False)
                 file.close()
         
-        with open(config_path, 'r') as file:
+        self.update_class_vars()
+
+    def update_config_file(self, settings_list: list) -> None:
+        with open(self.config_path, 'r') as file:
+            cfg = yaml.load(file, Loader=yaml.FullLoader)
+            # See YT Download.py (starting at line X) for reason why settings_list is not a dictionary
+
+            # If anyone knows a better way to do this please make a PR!
+            cfg['Directory_Settings']['use_default_directory'] = settings_list[0]
+            cfg['Directory_Settings']['custom_default_directory'] = settings_list[1]
+            cfg['Popup_Settings']['playlist_confirmation'] = settings_list[2]
+            cfg['Popup_Settings']['file_downloaded'] = settings_list[3]
+            cfg['Miscellaneous_Settings']['default_as_audio'] = settings_list[4]
+            cfg['Miscellaneous_Settings']['color_theme'] = settings_list[5]
+        file.close()
+        
+        with open(self.config_path, 'w') as file:
+            yaml.dump(cfg, file, sort_keys=False)
+        file.close()
+
+    def update_class_vars(self) -> None:
+        with open(self.config_path, 'r') as file:
             cfg = yaml.load(file, Loader=yaml.FullLoader)
             # Directory Settings
             self.use_default_directory = cfg['Directory_Settings']['use_default_directory']
@@ -103,8 +124,10 @@ class config:
             self.default_as_audio = cfg['Miscellaneous_Settings']['default_as_audio']
             self.color_theme = cfg['Miscellaneous_Settings']['color_theme']
             self.version = cfg['version']
+
+            file.close()
     
-    def check_for_OneDrive(self):
+    def check_for_OneDrive(self) -> str:
         userprofile = os.getenv('USERPROFILE')
         if os.path.exists(f'{userprofile}\\OneDrive'):
             return f'{userprofile}\\OneDrive\\Documents\\YT Download'
