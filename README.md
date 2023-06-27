@@ -23,7 +23,8 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
     * [Linux](#linux-1)
 * [User Manual](#user-manual)  
     * [Launching on Linux](#launching-on-linux)
-    * [Downloading Playlists](#downloading-playlists)
+    * [Downloading Playlists](#downloading-playlists)  
+* [The Settings Menu](#the-settings-menu)
 * [The Config File](#the-config-file)
     * [Directory Settings](#directory-settings)
     * [Popup Settings](#popup-settings)
@@ -285,7 +286,7 @@ Once your file is done downloading, a popup will appear showing the title of the
 ## The Settings Menu
 1.4.0 Introduced the Settings Menu which allows users to change YT Download's settings through a GUI. To open the settings menu, click the `Settings` button.  
 
-By default, the settings menu should look like this:
+By default, the settings menu should look like this:  
 <img width="310" alt="settings_menu" src="https://github.com/Joey451-OG/YT-Download/assets/60891047/907eea0e-9539-48b6-bfaa-a508b4b50935">
 
 > NOTE:
