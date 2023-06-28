@@ -20,17 +20,17 @@ YT Download. A simple GUI wrapper for yt-dlp.
 import PySimpleGUI as sg
 import main as downloader
 import webbrowser as web
-import os
 from sys import platform
+
 cfg = downloader.config()
 downloader.terminal_msgs(0, 0)
 sg.theme(cfg.color_theme) # Color Scheme
 
 # OS based default directory lookup
 downloader.terminal_msgs(0, 1)
-if cfg.use_default_directory:  
+if cfg.use_default_directory or (not cfg.use_default_directory and cfg.custom_default_directory == ''):  
     if platform == 'win32':
-        user_dir = os.environ['USERPROFILE'] + '\Documents\YT Download'
+        user_dir = cfg.check_for_OneDrive()
         logo = 'logo.ico'
     if platform == 'linux' or platform == 'linux2':
         user_dir = '~/Documents/YT-Download'
@@ -44,20 +44,18 @@ else:
 
 font = (None, 10, 'underline')
 
-
 # GUI layout
 layout = [ [sg.Text("Thank you for using YT Download!")],
            [sg.Text("YouTube URL:"), sg.InputText(key='URL')],
            [sg.Checkbox('Download as an audio file (mp3)?', default=cfg.default_as_audio, key='isAudio')],
            [sg.Text('File path. Leave blank to save download to:')],
-           [sg.Text(f'{user_dir}')],
+           [sg.Text(user_dir)],
            [sg.Input(key='DIR'), sg.FolderBrowse()],
-           [sg.Button('Download'), sg.Cancel(), sg.Text('Version: 1.3.0', tooltip='https://github.com/Joey451-OG/YT-Dowload', enable_events=True, key='GITHUB', font=font)]
+           [sg.Button('Download'), sg.Button('Settings'), sg.Cancel(button_text='Exit'), sg.Push(), sg.Text(f'Version: {cfg.version}', tooltip='https://github.com/Joey451-OG/YT-Download', enable_events=True, key='GITHUB', font=font)]
     ]
 
 # Main logic function. Calls the appropriate functions in main.py and handles input errors.
 def GUI_checks(audio_val: str, url_val: str, dir_val: str):
-    
     
     download = True
     
@@ -112,27 +110,70 @@ def GUI_checks(audio_val: str, url_val: str, dir_val: str):
                 elif cfg.file_downloaded: # Downloaded confirmation popup
                     sg.popup(f'Downloaded {title} as a {file_type} file to {dir_val}', icon=logo, title='YT Download')
             
+# Main logic behind the settings menu window. Calls appropriate functions in main.py.
+def settings_menu():
+    print(f'\n\n{"x" * 10}\nNOW ENTERING SETTINGS MENU. ALL EVENT/VALUE PAIRS ARE SPECIFIC TO THE SETTINGS WINDOW.\n{"x" * 10}\n\n')
+    settings_window = sg.Window('YT Download', settings_layout, icon=logo)
+    while True:
+        s_event, s_value = settings_window.read()
+        print(s_event, s_value)
+
+        if s_event == sg.WIN_CLOSED or s_event == 'Exit': # Check to see if the user closes the settings window or clicks the EXIT button
+            settings_window.close()
+            break
+        if s_event == 'Apply': # Check to see if the user clicks the APPLY button
+            s_value.pop('Browse') # Remove the data associated with the BROWSE key. This is duplicate information as the INPUT (key: 2) field. Since the INPUT field can be used independently of BROWSE, we keep it.
+            setting_list = list(s_value.values())
+            cfg.update_config_file(setting_list)
+            cfg.update_class_vars()
+            settings_window.close()
+            sg.popup('Closing YT Download in five seconds... \nClick OK to shutdown now.',title='YT Download', auto_close=True, auto_close_duration=5, icon=logo)
+            window.close()
+            
 
 # Main setup loop. Calls GUI_checks()
 downloader.terminal_msgs(0, 2)
 window = sg.Window('YT Download', layout, icon=logo)
 while True:
     
+    # Playlist Layout
     playlist_layout = [
-        [sg.Text('You are trying to download a Playlist. Do you want to continue?')],
-        [sg.Button('Yes'), sg.Button('No')]
+        [sg.Push(), sg.Text('You are trying to download a Playlist. Do you want to continue?'), sg.Push()],
+        [sg.Push(), sg.Button('Yes'), sg.Button('No'), sg.Push()]
+    ]
+
+    # Settings Menu Layout
+    settings_layout = [
+        [sg.Push(), sg.Text('Settings Menu'), sg.Push()],
+        [sg.Push(), sg.Text('~' * 15), sg.Push()],
+        [sg.Text('Directory Settings'), sg.HorizontalSeparator(pad=(10, 5))],
+        [sg.Checkbox('Use default directory', default=cfg.use_default_directory)],
+        [sg.Text('Custom default directory:', tooltip='Custom default directory will not be used if USE DEFAULT DIRECTORY is checked')],
+        [sg.Input(tooltip='Custom default directory will not be used if USE DEFAULT DIRECTORY is checked'), sg.FolderBrowse(tooltip='Custom default directory will not be used if USE DEFAULT DIRECTORY is checked')],
+        [sg.Text('Popup Settings'), sg.HorizontalSeparator(pad=(10, 5))],
+        [sg.Checkbox('Show playlist confirmation popup', default=cfg.playlist_confirmation)],
+        [sg.Checkbox('Show file downloaded popup', default=cfg.file_downloaded)],
+        [sg.Text('Miscellaneous Settings'), sg.HorizontalSeparator(pad=(10, 5))],
+        [sg.Checkbox('Download as .mp3 by default', default=cfg.default_as_audio)],
+        [sg.Text('Color Theme:'), sg.Combo(sg.theme_list(), default_value=cfg.color_theme)],
+        [sg.Push(), sg.Text('~' * 15), sg.Push()],
+        [sg.Button('Apply', tooltip='YT Download will shutdown in order to apply your changes'), sg.Push(), sg.Button('Exit', tooltip='Exiting will not save any changes')]
+
     ]
 
     event, values = window.read() # Check the active event and the value dictionary.
     print(event, values) # Print event and values for debugging in the command line.
 
-    if event == sg.WIN_CLOSED or event == 'Cancel': # Break the loop if the window is closed or the 'Cancel' button is pressed
+    if event == sg.WIN_CLOSED or event == 'Exit': # Break the loop if the window is closed or the 'Cancel' button is pressed
         break
     
     if event == 'GITHUB': # If the linked is clicked, open the GitHub repo.
         web.open("https://github.com/Joey451-OG/YT-Dowload")
 
-    if event == 'Download': # Was the Download button pressed?
+    if event == 'Download': # If the Download button was clicked, being file download
         GUI_checks(values['isAudio'], values['URL'], values['DIR'])
+    
+    if event == 'Settings': # If the Settings button is clicked, open the settings Menu
+        settings_menu()
 
 window.close() # Kill the program

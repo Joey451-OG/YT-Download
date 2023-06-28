@@ -8,6 +8,7 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
 
 ## Table of Contents  
 * [Change Log](#change-log)
+    * [Version 1.4.0](#version-140)
     * [Version 1.3.0](#version-130)
     * [Version 1.2.1](#version-121)
     * [Version 1.2.0](#version-120)
@@ -17,10 +18,14 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
     * [Windows](#windows)  
     * [Linux](#linux)
     * [Suggested Changes for Linux Users](#suggested-changes-for-linux-users)
+* [Updating YT Download](#updating-yt-download)
+    * [Windows](#windows-1)
+    * [Linux](#linux-1)
 * [User Manual](#user-manual)  
     * [Launching on Linux](#launching-on-linux)
-    * [Downloading Playlists](#downloading-playlists)
-* [Changing Settings](#changing-settings)
+    * [Downloading Playlists](#downloading-playlists)  
+* [The Settings Menu](#the-settings-menu)
+* [The Config File](#the-config-file)
     * [Directory Settings](#directory-settings)
     * [Popup Settings](#popup-settings)
     * [Miscellaneous Settings](#miscellaneous-settings)
@@ -28,6 +33,12 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
 * [Credits](#credits)
 
 ## Change Log
+### **Version 1.4.0**
+- ➕ Added [Settings Menu](#PLACEHOLDER)
+- ➖ Removed config file from `.msi` installer*
+- 🐛 Fixed inaccessible config file bug by rewriting the `config()` class  
+
+*The config file is now handled by the reworked `config()` class in `main.py`. The new class handles updating, reading, and writing the config file.
 ### **Version 1.3.0**  
 - ➕ Added the ability to change settings through the [config](#changing-settings) file.  
 - ➕ Added Linux support and documentation.  
@@ -63,7 +74,10 @@ NOTE: Removed the original .msi installer. Currently working on a new one. The o
 
 ## Installation    
 ### Windows
-You can install YT Download with `winget` by typing `winget install yt-download` in a powershell window. Alternatively, you can download the latest installer from the [Release tab.](https://github.com/Joey451-OG/YT-Download/releases)  
+You can install YT Download with `winget` by typing `winget install yt-download` in a powershell window. Alternatively, you can download the latest installer from the [Release tab.](https://github.com/Joey451-OG/YT-Download/releases)
+```
+PS C:\> winget install yt-download
+```  
 
 ### Linux  
 Since YT Download does not yet have a linux binary, you'll need to clone this github repo, install the dependencies, and start up YT Download by running the python file with the same name. Here is a step-by-step guide on how to do just that.  
@@ -142,14 +156,15 @@ First, open `main.py` with nano.
 ```
 $ nano main.py
 ```
-Navigate to the `config` class, it's at the top of the script right underneath the license. Change `with open('config.yml', 'r') [...]` to `with open('/home/YOUR_USERNAME_HERE/bin/config.yml', 'r') [...]`.
+Navigate to the `config_path` variable, it's at the top of the script right underneath the license and imports. Change `config_file = 'config.yml` to `config_path = '/home/YOUR_USERNAME_HERE/bin/config.yml'`.
 
 ```python
-# Handles the config file
-class config:
-    def __init__(self) -> None:
-        with open('/home/YOUR_USERNAME_HERE/bin/config.yml', 'r') as file:
-            [...]
+[...]
+
+config_file = '/home/YOUR_USERNAME_HERE/bin/config.yml'
+
+video_options = {
+  [...]
 ```
 
 Save the file by pressing `Ctrl + X` then `y` then `enter`.  
@@ -192,7 +207,6 @@ Now navigate back into the directory where YT-Download is installed and move the
 ```
 $ mv YT-Download.py ~/bin/
 $ mv main.py ~/bin/
-$ mv config.yml ~/bin/
 $ mv logo.png ~/bin/
 ```
 
@@ -203,6 +217,21 @@ $ YT-Download.py
 
 > **Note:** You can delete the cloned repo directory since it is no longer needed.
 
+## Updating YT Download
+### Windows
+To update YT Download on windows run `winget update yt-download` in powershell or simply download and run the new `.msi` from [Releases Tab](https://github.com/Joey451-OG/YT-Download/releases).
+```
+PS C:\> winget update yt-download
+```
+### Linux
+If you are not going to follow [suggested changes for linux users](#suggested-changes-for-linux-users), simply clone this repository and delete the old repo.
+```
+$ git clone https://www.github.com/Joey451-OG/YT-Download
+```
+
+If you have followed suggested changes for linux users, clone the repo then replace `YT Download.py` and `main.py` in `~/bin/` with the updated files. Now start following the [suggested changes for linux users](#suggested-changes-for-linux-users) instructions. Stop after you `chmod` the `YT-Download.py` script.
+>Note:
+>If you get the error: `KeyError: 'version'` when running the script, you'll need to replace the config file in `~/bin` with the new one in the repo (only 1.3.0 and earlier). 
 
 ## User Manual  
 After installing the program with the .msi or `winget`, open YT Download.
@@ -210,7 +239,7 @@ After installing the program with the .msi or `winget`, open YT Download.
 <img width="600" alt="opening" src="https://user-images.githubusercontent.com/60891047/225435630-903ae087-debf-4dbf-919b-db6555c6c089.png">  
 
 > ### Launching on Linux
-> Nagivate to the directory where YT Download is installed and run:
+> Navigate to the directory where YT Download is installed and run:
 >```
 >$ python3 'YT Download.py'
 >```
@@ -256,37 +285,50 @@ Once your file is done downloading, a popup will appear showing the title of the
 
 <img width="872" alt="file" src="https://user-images.githubusercontent.com/60891047/225439475-56294cf0-db5c-497d-bdc6-55af6150614b.png">  
 
-## Changing Settings  
+## The Settings Menu
+1.4.0 Introduced the Settings Menu which allows users to change YT Download's settings through a GUI. To open the settings menu, click the `Settings` button.  
+
+By default, the settings menu should look like this:  
+<img width="310" alt="settings_menu" src="https://github.com/Joey451-OG/YT-Download/assets/60891047/907eea0e-9539-48b6-bfaa-a508b4b50935">
+
+> NOTE:
+> - After clicking the `Apply` button, YT Download will automatically shutdown in order to apply user changes. You will need to restart the program manually.  
+> - Clicking the `Exit` button will close the Settings Menu without restarting or saving any changes.
+
+You can find a description of each setting starting [here](#directory-settings).
+
+## The Config File  
 1.3.0 Introduced the ability to change YT Download's settings by modifying the `config.yml` file. Here is a breakdown on what each option does.  
 
 This is the default state of `config.yml`
 ```yaml
-# Directory Settings
-use_default_directory: yes
-custom_default_directory: paste\custom\default\directory\path\here
-
-# Popup Settings
-playlist_confirmation: yes
-file_downloaded: yes
-
-# Miscellaneous Settings
-default_as_audio: no
-color_theme: DarkAmber # For a full list of available themes, see 'themes.png' in YT Download's install location
+version: 1.4.0
+Directory_Settings:
+  use_default_directory: true
+  custom_default_directory: paste\custom\default\directory\path\here
+Popup_Settings:
+  playlist_confirmation: true
+  file_downloaded: true
+Miscellaneous_Settings:
+  default_as_audio: false
+  color_theme: DarkAmber
 ```
 
-The config file is broken up into three sub-sections: `Directory Settings`, `Popup Settings`, and `Miscellaneous Settings`. [Directory Settings](#directory-settings) controls how YT Download handles directories, [Popup Settings](#popup-settings) handles how YT Download uses popups, and [Miscellaneous Settings](#miscellaneous-settings) controls... well.. miscellaneous settings such as YT Download's color theme.  
+The config file is broken up into three sub-sections: `Directory Settings`, `Popup Settings`, and `Miscellaneous Settings`. [Directory Settings](#directory-settings) controls how YT Download handles directories, [Popup Settings](#popup-settings) handles how YT Download uses popups, and [Miscellaneous Settings](#miscellaneous-settings) controls... well.. miscellaneous settings such as YT Download's color theme.
+
+>Note: The `version` variable is used to display the version number on the main window and update the config file. Please do not change this variable.
 
 ### Directory Settings
 As stated previously, `Directory Settings` controls how YT Download handles directories.  
 
 `use_default_directory` | Input: *yes*, *no*  
-If *yes* YT Download will use the default directory. For windows users the default directory is: `C:\users\%USERPROFILE%\Documents\YT Download`. For linux users the default directory is: `~/Documents/YT-Download`. If *no*, then YT Download will use whatever directory is specified in `custom_default_directory` as the default directory.   
+If *yes* YT Download will use the default directory. For windows users the default directory is: `C:\users\%USERPROFILE%\Documents\YT Download` (or OneDrive equivalent). For linux users the default directory is: `~/Documents/YT-Download`. If *no*, then YT Download will use whatever directory is specified in `custom_default_directory` as the default directory.   
   
 `custom_default_directory` | Input: *PATH str*  
 Whatever directory path that is inputted here will be used as the default directory if 
 `use_default_directory` is *no*.  
 
-> Note: One common mistake when using this feature is not typing the directory in properly. The author strongly recommends pasting the directory path into this field. However, if one is unable to do such, remember to use backslashes ( `\` ) for windows and forward slashes ( `/` ) for linux. If the directory is inputted incorrectly, YT Download will make a new directory in the program's root directory.  
+> Note: One common mistake when using this feature is not typing the directory in properly. The author strongly recommends pasting a directory path into this field. However, if one is unable to do such, remember to use backslashes ( `\` ) for windows and forward slashes ( `/` ) for linux. If the directory is inputted incorrectly, YT Download will make a new directory in the program's root directory.  
   
 ### Popup Settings
 `Popup Settings` handles which popups YT Download shows.
@@ -320,7 +362,7 @@ import PySimpleGUI
 PySimpleGUI.theme_previewer()
 ```
 ### Making Changes
-After you are finished editing the config file, simply save the file and researt YT Download for the changes to come into effect.
+After you are finished editing the config file, simply save the file and restart YT Download for the changes to come into effect.
 
 ## Credits
 Icon: Image by https://pixabay.com/images/id-1834016/
@@ -332,6 +374,10 @@ YT-DLP: https://github.com/yt-dlp/yt-dlp
 PySimpleGUI: https://github.com/PySimpleGUI/PySimpleGUI
 
 FFmpeg: https://ffmpeg.org/
+
+PyYAML: https://github.com/yaml/pyyaml  
+
+YAML: https://yaml.org/  
 
 Thank you for using YT Download!
 
