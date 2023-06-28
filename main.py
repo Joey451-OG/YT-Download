@@ -18,6 +18,7 @@ YT Download. A simple GUI wrapper for yt-dlp.
 '''
 
 from yt_dlp import YoutubeDL, utils
+from sys import platform
 import yaml
 import os
 
@@ -58,7 +59,7 @@ default_config = {
 # Handles the config file
 class config:
     def __init__(self) -> None:
-  
+        
         self.config_path = config_path
         update_file = False
         
@@ -83,7 +84,7 @@ class config:
                         cfg[item] = default_config[item]
         
                 cfg['version'] = default_config['version'] # Update the version number
-        file.close()
+            file.close()
 
             if update_file: # Dump the new settings
                 with open(self.config_path, 'w') as file:
@@ -115,9 +116,6 @@ class config:
     def update_class_vars(self) -> None: 
         with open(self.config_path, 'r') as file:
             cfg = yaml.load(file, Loader=yaml.FullLoader)
-            
-        with open('config.yml', 'r') as file:
-            self.cfg = yaml.load(file, Loader=yaml.FullLoader)
             # Directory Settings
             self.use_default_directory = cfg['Directory_Settings']['use_default_directory']
             self.custom_default_directory = cfg['Directory_Settings']['custom_default_directory']
@@ -129,7 +127,7 @@ class config:
             self.color_theme = cfg['Miscellaneous_Settings']['color_theme']
             self.version = cfg['version']
 
-        file.close()
+            file.close()
     
     # Check if the OneDrive folder exists and return the actual Documents path (WINDOWS ONLY)
     def check_for_OneDrive(self) -> str: 
