@@ -34,7 +34,7 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
 
 ## Change Log
 ### **Version 1.4.0**
-- ➕ Added [Settings Menu](#PLACEHOLDER)
+- ➕ Added [Settings Menu](#the-settings-menu)
 - ➖ Removed config file from `.msi` installer*
 - 🐛 Fixed inaccessible config file bug by rewriting the `config()` class  
 
