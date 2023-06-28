@@ -229,7 +229,9 @@ If you are not going to follow [suggested changes for linux users](#suggested-ch
 $ git clone https://www.github.com/Joey451-OG/YT-Download
 ```
 
-If you have followed suggested changes for linux users, clone the repo then replace `YT Download.py` and `main.py` in `/home/YOUR_USERNAME_HERE/bin/` with the updated files. Now start following the [suggested changes for linux users](#suggested-changes-for-linux-users) instructions. Stop after you `chmod` the `YT-Download.py` script.
+If you have followed suggested changes for linux users, clone the repo then replace `YT Download.py` and `main.py` in `~/bin/` with the updated files. Now start following the [suggested changes for linux users](#suggested-changes-for-linux-users) instructions. Stop after you `chmod` the `YT-Download.py` script.
+>Note:
+>If you get the error: `KeyError: 'version'` when running the script, you'll need to replace the config file in `~/bin` with the new one in the repo (only 1.3.0 and earlier). 
 
 ## User Manual  
 After installing the program with the .msi or `winget`, open YT Download.
@@ -290,7 +292,7 @@ By default, the settings menu should look like this:
 <img width="310" alt="settings_menu" src="https://github.com/Joey451-OG/YT-Download/assets/60891047/907eea0e-9539-48b6-bfaa-a508b4b50935">
 
 > NOTE:
-> - After clicking the `Apply` button, YT Download will automatically restart in order to apply user changes.  
+> - After clicking the `Apply` button, YT Download will automatically shutdown in order to apply user changes. You will need to restart the program manually.  
 > - Clicking the `Exit` button will close the Settings Menu without restarting or saving any changes.
 
 You can find a description of each setting starting [here](#directory-settings).
