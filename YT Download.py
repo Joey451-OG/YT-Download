@@ -129,7 +129,7 @@ def settings_menu():
             settings_window.close()
             sg.popup('Closing YT Download in five seconds... \nClick OK to shutdown now.',title='YT Download', auto_close=True, auto_close_duration=5, icon=logo)
             window.close()
-            return 'RESTART'
+            
 
 # Main setup loop. Calls GUI_checks()
 downloader.terminal_msgs(0, 2)
@@ -174,6 +174,6 @@ while True:
         GUI_checks(values['isAudio'], values['URL'], values['DIR'])
     
     if event == 'Settings': # If the Settings button is clicked, open the settings Menu
-        check = settings_menu()
+        settings_menu()
 
 window.close() # Kill the program
