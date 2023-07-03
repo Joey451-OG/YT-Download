@@ -28,7 +28,7 @@ sg.theme(cfg.color_theme) # Color Scheme
 
 # OS based default directory lookup
 downloader.terminal_msgs(0, 1)
-if cfg.use_default_directory or (not cfg.use_default_directory and cfg.custom_default_directory == ''):  
+if cfg.use_default_directory or (not cfg.use_default_directory and cfg.custom_default_directory == ''):
     if platform == 'win32':
         user_dir = cfg.check_for_OneDrive()
         logo = 'logo.ico'
@@ -122,10 +122,19 @@ def settings_menu():
             settings_window.close()
             break
         if s_event == 'Apply': # Check to see if the user clicks the APPLY button
+            # Package the settings menu data
             s_value.pop('Browse') # Remove the data associated with the BROWSE key. This is duplicate information as the INPUT (key: 2) field. Since the INPUT field can be used independently of BROWSE, we keep it.
             setting_list = list(s_value.values())
+
+            # Check for accidental overwrite of the custom default directory
+            if not cfg.use_default_directory and s_value[2] == '':
+                setting_list[1] = cfg.custom_default_directory
+            
+            # Send data to main.py for writing to config file
             cfg.update_config_file(setting_list)
             cfg.update_class_vars()
+
+            # Restart YT Download
             settings_window.close()
             sg.popup('Closing YT Download in five seconds... \nClick OK to shutdown now.',title='YT Download', auto_close=True, auto_close_duration=5, icon=logo)
             window.close()
