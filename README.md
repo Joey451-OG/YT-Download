@@ -231,7 +231,7 @@ $ git clone https://www.github.com/Joey451-OG/YT-Download
 
 If you have followed suggested changes for linux users, clone the repo then replace `YT Download.py` and `main.py` in `~/bin/` with the updated files. Now start following the [suggested changes for linux users](#suggested-changes-for-linux-users) instructions. Stop after you `chmod` the `YT-Download.py` script.
 >Note:
->If you get the error: `KeyError: 'version'` when running the script, you'll need to replace the config file in `~/bin` with the new one in the repo (only 1.3.0 and earlier). 
+>If you get the error: `KeyError: 'version'` when running the script, you'll need to remove the config file in `~/bin` (only 1.3.0 and earlier). 
 
 ## User Manual  
 After installing the program with the .msi or `winget`, open YT Download.
