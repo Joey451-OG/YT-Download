@@ -8,6 +8,7 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
 
 ## Table of Contents  
 * [Change Log](#change-log)
+    * [Version 1.4.1](#version-141)
     * [Version 1.4.0](#version-140)
     * [Version 1.3.0](#version-130)
     * [Version 1.2.1](#version-121)
@@ -33,6 +34,9 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
 * [Credits](#credits)
 
 ## Change Log
+### **Version 1.4.1**
+- 🐛 Fixed a bug where the custom default directory would always be overwritten every time the user clicks the `Apply` button in the settings menu.
+
 ### **Version 1.4.0**
 - ➕ Added [Settings Menu](#the-settings-menu)
 - ➖ Removed config file from `.msi` installer*
