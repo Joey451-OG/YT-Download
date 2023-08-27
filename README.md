@@ -8,6 +8,7 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
 
 ## Table of Contents  
 * [Change Log](#change-log)
+    * [Version 1.4.2](#version-142)
     * [Version 1.4.1](#version-141)
     * [Version 1.4.0](#version-140)
     * [Version 1.3.0](#version-130)
@@ -34,6 +35,9 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
 * [Credits](#credits)
 
 ## Change Log
+### **Version 1.4.2**
+- 🐛 Updated `yt-dlp` library packaged with YT Download. This will fix the `[download] Got error: HTTP Error 403: Forbidden` that users where experiencing.
+
 ### **Version 1.4.1**
 - 🐛 Fixed a bug where the custom default directory would always be overwritten every time the user clicks the `Apply` button in the settings menu.
 
