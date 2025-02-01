@@ -1,0 +1,10 @@
+This is a temporary note describing the yt-dlp update in the new version.
+
+2024-01-31
+So the guy who wrote PySimpleGUI has such an ego that they now want users to register with a license key
+in order to use the library. I'm switching to a different GUI library holy shit that guy is insane if they
+think I'm PAYING to use what amounts to a TKinter WRAPPER wtf.
+
+Other than that my little windows machine to update the libraries properly, I will not be releasing a new
+version until I port to a new GUI library.
+
