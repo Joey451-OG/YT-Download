@@ -38,7 +38,7 @@ audio_options = {
 }
 
 default_config = {
-    'version': '1.4.2',
+    'version': '1.5.0',
 
     'Directory_Settings': {
         'use_default_directory': True,
@@ -52,7 +52,7 @@ default_config = {
 
     'Miscellaneous_Settings': {
         'default_as_audio': False,
-        'color_theme': 'DarkAmber'
+        'color_theme': 'DarkAmber' # Will probably be changed once I move GUI libraries.
     }
     }
 
@@ -137,15 +137,30 @@ class config:
         else:
             return f'{userprofile}\\Documents\\YT Download'
 
+# Cleans the si= from links which is used to identify the user who shared a link
+# Example: https://music.youtube.com/watch?v=itxarI8weqQ&si=GnCT8Ud0aKD6NbjH
+def linkCleaner(dirty_url: str) -> str:
+    if "&si=" in dirty_url:
+        cutoff_index = dirty_url.find("&si=")
+        return dirty_url[:cutoff_index]
+    
+    else:
+        return dirty_url
+
 # Handles downloading and retrieving information
-def YoutubeDownloader(settings: dict, url: str):
+def youtubeDownloader(settings: dict, url: str):
     with YoutubeDL(settings) as ydl:
         try:
-            ydl.download(url)
+            clean_url = linkCleaner(url)
+
+            # Print Debugging information.
+            terminal_msgs(1, 1); print(" " + clean_url)
+            
+            ydl.download(clean_url)
         except utils.DownloadError:
             return 'FFMPEG ERROR'    
 
-# Main logic. Sets directory and calls YoutubeDownloader()
+# Main logic. Sets directory and calls youtubeDownloader()
 def logic(URL: str, ISaudio: bool, DIR: str):
     terminal_msgs(0, 3)
     audio_options['outtmpl'] = DIR + '/%(title)s.%(ext)s'
@@ -153,9 +168,9 @@ def logic(URL: str, ISaudio: bool, DIR: str):
     
     terminal_msgs(0, 4)
     if ISaudio: # Download as audio or video
-        return YoutubeDownloader(audio_options, URL)
+        return youtubeDownloader(audio_options, URL)
     else:
-        return YoutubeDownloader(video_options, URL)
+        return youtubeDownloader(video_options, URL)
     
 # Returns the title of video the url points to.
 def return_title(url: str):
@@ -175,14 +190,26 @@ def terminal_msgs(dic: int, key: int):
         3: '\nSelecting directory...\n',
         4: '\nDownloading...\n'
     }
+    
+    better_looking = {
+        0: "[YT DOWNLOAD] ", # Generic Tag
+        1: "\n[YT DOWNLOAD] Attempting to download :"
+    }
 
-    if dic == 0:
-        print(operational[key]) # I might add more dictionaries to this function so this code isn't redundant
+    match dic:
+        case 0:
+            print(operational[key]) # I might add more dictionaries to this function so this code isn't redundant
+        case 1:
+            print(better_looking[key]) # Told you so, just took a few years
+    
 '''
 Useful testing things:
 
 One video
 https://youtu.be/I8sUC-dsW8A
+
+Dirty Link:
+https://music.youtube.com/watch?v=itxarI8weqQ&si=GnCT8Ud0aKD6NbjH
 
 Playlist
 https://youtube.com/playlist?list=PLq-8SN7V15mnk7-hLp2i7Lwh7gPZwkFoX
