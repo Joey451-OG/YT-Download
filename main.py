@@ -60,6 +60,7 @@ default_config = {
 class config:
     def __init__(self) -> None:
         
+        # Class Variables
         self.config_path = config_path
         update_file = False
         
@@ -95,6 +96,7 @@ class config:
     
     # Sets and dumps the new changes made by a user in the Settings Menu (see YT Download.py)
     def update_config_file(self, settings_list: list) -> None:
+        # Read config file
         with open(self.config_path, 'r') as file:
             cfg = yaml.load(file, Loader=yaml.FullLoader)
             # See YT Download.py (starting at line X) for reason why settings_list is not a dictionary
@@ -193,7 +195,10 @@ def terminal_msgs(dic: int, key: int):
     
     better_looking = {
         0: "[YT DOWNLOAD] ", # Generic Tag
-        1: "\n[YT DOWNLOAD] Attempting to download :"
+        1: "\n\n[YT DOWNLOAD] Please feel free to minimize this debug window\n\n",
+        2: "\n[YT DOWNLOAD] Detecting Operating System...",
+        3: "\n[YT DOWNLOAD] Initializing application window...",
+        4: "\n[YT DOWNLOAD] Attempting to download :"
     }
 
     match dic:
