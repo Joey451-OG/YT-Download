@@ -17,7 +17,7 @@ YT Download. A simple GUI wrapper for yt-dlp.
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '''
 
-import PySimpleGUI as sg
+import FreeSimpleGUI as sg
 import main as downloader
 import webbrowser as web
 from sys import platform
@@ -130,9 +130,14 @@ def settings_menu():
             if not cfg.use_default_directory and s_value[2] == '':
                 setting_list[1] = cfg.custom_default_directory
             
-            # Send data to main.py for writing to config file
-            cfg.update_config_file(setting_list)
-            cfg.update_class_vars()
+            # Check if user wants to revert to default settings
+            if not setting_list[6]:
+                # Send data to main.py for writing to config file
+                cfg.update_config_file(setting_list)
+            else:
+                # Update config file with default settings
+                cfg.apply_default_settings()
+                
 
             # Restart YT Download
             settings_window.close()
@@ -165,6 +170,7 @@ while True:
         [sg.Text('Miscellaneous Settings'), sg.HorizontalSeparator(pad=(10, 5))],
         [sg.Checkbox('Download as .mp3 by default', default=cfg.default_as_audio)],
         [sg.Text('Color Theme:'), sg.Combo(sg.theme_list(), default_value=cfg.color_theme)],
+        [sg.Checkbox('Revert to default settings?', default=cfg.use_defaults, tooltip='If checked, YT Download will revert to default settings.')],
         [sg.Push(), sg.Text('~' * 15), sg.Push()],
         [sg.Button('Apply', tooltip='YT Download will shutdown in order to apply your changes'), sg.Push(), sg.Button('Exit', tooltip='Exiting will not save any changes')]
 

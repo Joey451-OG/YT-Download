@@ -379,7 +379,7 @@ Dependencies:
 
 YT-DLP: https://github.com/yt-dlp/yt-dlp
 
-PySimpleGUI: https://github.com/PySimpleGUI/PySimpleGUI
+
 
 FFmpeg: https://ffmpeg.org/
 
