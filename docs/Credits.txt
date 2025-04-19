@@ -3,7 +3,13 @@ Icon: Image by https://pixabay.com/images/id-1834016/
 Dependencies:
 
 YT-DLP: https://github.com/yt-dlp/yt-dlp
-PySimpleGUI: https://github.com/PySimpleGUI/PySimpleGUI
+
+FreeSimpleGUI: https://github.com/spyoungtech/FreeSimpleGUI
+
 FFmpeg: https://ffmpeg.org/
+
+PyYAML: https://github.com/yaml/pyyaml  
+
+YAML: https://yaml.org/  
 
 Thank you for using YT Download!

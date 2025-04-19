@@ -1,5 +1,8 @@
 # Contributing
 
+Make sure your python virtual environment folder is name `venv` in order to be ignored by `.gitignore`.
+
+
 ## Dependencies
 YT-DLP
 ```bash

@@ -23,11 +23,11 @@ import webbrowser as web
 from sys import platform
 
 cfg = downloader.config()
-downloader.terminal_msgs(0, 0)
+downloader.terminal_msgs(1, 1)
 sg.theme(cfg.color_theme) # Color Scheme
 
 # OS based default directory lookup
-downloader.terminal_msgs(0, 1)
+downloader.terminal_msgs(1, 2)
 if cfg.use_default_directory or (not cfg.use_default_directory and cfg.custom_default_directory == ''):
     if platform == 'win32':
         user_dir = cfg.check_for_OneDrive()
@@ -106,7 +106,7 @@ def GUI_checks(audio_val: str, url_val: str, dir_val: str):
                 yt_download = downloader.logic(url_val, audio_val, dir_val)
 
                 if yt_download == 'FFMPEG ERROR': # Check for a FFMPEG error
-                    sg.popup('It looks like FFmpeg is not installed. Try reinstalling YT Download or add FFmpeg to the PATH manually.', icon=logo, title='YT Download')
+                    sg.popup('It looks like FFmpeg is not installed. Try reinstalling FFmpeg or checking if it has been added to the PATH correctly.', icon=logo, title='YT Download')
                 elif cfg.file_downloaded: # Downloaded confirmation popup
                     sg.popup(f'Downloaded {title} as a {file_type} file to {dir_val}', icon=logo, title='YT Download')
             
@@ -146,7 +146,7 @@ def settings_menu():
             
 
 # Main setup loop. Calls GUI_checks()
-downloader.terminal_msgs(0, 2)
+downloader.terminal_msgs(1, 3)
 window = sg.Window('YT Download', layout, icon=logo)
 while True:
     

@@ -8,6 +8,7 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
 
 ## Table of Contents  
 * [Change Log](#change-log)
+    * [Version 1.5.0](#version-150)
     * [Version 1.4.2](#version-142)
     * [Version 1.4.1](#version-141)
     * [Version 1.4.0](#version-140)
@@ -35,6 +36,14 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
 * [Credits](#credits)
 
 ## Change Log
+### **Version 1.5.0**
+- ➕ Added the ability to automatically clean `si=` tracker from YouTube share links.
+- ➕ Added the ability to revert to default settings.
+- ➕ Added FFmpeg to the `.msi` installer's dependencies
+- ➖ Removed prepacked FFmpeg from `.msi` installer. Now FFmpeg is installed as a dependency.
+- 🐛 Fixed a bug that caused the config file updater to only check for new setting categories instead of new settings in each category.
+- 🐛 Uploaded `yt-dlp` that is packed with YT Download.
+
 ### **Version 1.4.2**
 - 🐛 Updated `yt-dlp` library packaged with YT Download. This will fix the `[download] Got error: HTTP Error 403: Forbidden` that users where experiencing.
 
@@ -104,9 +113,9 @@ Then, clone this repo:
 $ git clone https://www.github.com/Joey451-OG/YT-Download
 ```
 Now it's time to install the dependencies.  
-First, install PySimpleGUI:
+First, install FreeSimpleGUI:
 ```
-$ pip install PySimpleGUI
+$ pip install FreeSimpleGUI
 ```
 Next, install Tkinter:
 ```
@@ -310,7 +319,7 @@ You can find a description of each setting starting [here](#directory-settings).
 
 This is the default state of `config.yml`
 ```yaml
-version: 1.4.0
+version: 1.5.0
 Directory_Settings:
   use_default_directory: true
   custom_default_directory: paste\custom\default\directory\path\here
@@ -320,6 +329,7 @@ Popup_Settings:
 Miscellaneous_Settings:
   default_as_audio: false
   color_theme: DarkAmber
+  use_defaults: false
 ```
 
 The config file is broken up into three sub-sections: `Directory Settings`, `Popup Settings`, and `Miscellaneous Settings`. [Directory Settings](#directory-settings) controls how YT Download handles directories, [Popup Settings](#popup-settings) handles how YT Download uses popups, and [Miscellaneous Settings](#miscellaneous-settings) controls... well.. miscellaneous settings such as YT Download's color theme.
@@ -329,12 +339,12 @@ The config file is broken up into three sub-sections: `Directory Settings`, `Pop
 ### Directory Settings
 As stated previously, `Directory Settings` controls how YT Download handles directories.  
 
-`use_default_directory` | Input: *yes*, *no*  
-If *yes* YT Download will use the default directory. For windows users the default directory is: `C:\users\%USERPROFILE%\Documents\YT Download` (or OneDrive equivalent). For linux users the default directory is: `~/Documents/YT-Download`. If *no*, then YT Download will use whatever directory is specified in `custom_default_directory` as the default directory.   
+`use_default_directory` | Input: *boolean*  
+If *true* YT Download will use the default directory. For windows users the default directory is: `C:\users\%USERPROFILE%\Documents\YT Download` (or OneDrive equivalent). For linux users the default directory is: `~/Documents/YT-Download`. If *false*, then YT Download will use whatever directory is specified in `custom_default_directory` as the default directory.   
   
 `custom_default_directory` | Input: *PATH str*  
 Whatever directory path that is inputted here will be used as the default directory if 
-`use_default_directory` is *no*.  
+`use_default_directory` is *false*.  
 
 > Note: One common mistake when using this feature is not typing the directory in properly. The author strongly recommends pasting a directory path into this field. However, if one is unable to do such, remember to use backslashes ( `\` ) for windows and forward slashes ( `/` ) for linux. If the directory is inputted incorrectly, YT Download will make a new directory in the program's root directory.  
   
@@ -342,32 +352,37 @@ Whatever directory path that is inputted here will be used as the default direct
 `Popup Settings` handles which popups YT Download shows.
 > Note: `Popup Settings` cannot disable error popups
 
-`playlist_confirmation` | Input: *yes*, *no*  
-If *yes*, the [playlist confirmation popup](#downloading-playlists) will be shown. If *no*, the popup will not be shown. This will result in the playlist being downloaded without any extra user input.  
+`playlist_confirmation` | Input: *boolean*  
+If *true*, the [playlist confirmation popup](#downloading-playlists) will be shown. If *false*, the popup will not be shown. This will result in the playlist being downloaded without any extra user input.  
 
-`file_downloaded` | Input: *yes*, *no*  
-If *yes* the [file downloaded](https://user-images.githubusercontent.com/60891047/225439007-7dadec6c-623e-4445-8ac7-6bd664f8f972.png) popup will be shown. If *no*, the popup will not be shown.  
+`file_downloaded` | Input: *boolean*  
+If *true* the [file downloaded](https://user-images.githubusercontent.com/60891047/225439007-7dadec6c-623e-4445-8ac7-6bd664f8f972.png) popup will be shown. If *false*, the popup will not be shown.  
 
 ### Miscellaneous Settings
 `Miscellaneous Settings` handles a mix of different settings.  
 
-`default_as_audio` | Input: *yes*, *no*  
-If *yes*, the `Download as audio file (mp3)?` box will already be selected when opening YT Download. If *no* the checkbox will not be selected by default.  
+`default_as_audio` | Input: *boolean*  
+If *true*, the `Download as audio file (mp3)?` box will already be selected when opening YT Download. If *false* the checkbox will not be selected by default.  
 
 `color_theme` | Input: *str*  
-Controls which PySimpleGUI color theme will be used. To change the color theme, simple pick a theme and copy its' name into the field. Make sure to mind the casing (e.g., *DarkAmber* is a valid theme but *darkamber* is not).  
+Controls which FreeSimpleGUI color theme will be used. To change the color theme, simple pick a theme and copy its' name into the field. Make sure to mind the casing (e.g., *DarkAmber* is a valid theme but *darkamber* is not).
+
+`use_defaults` | Input: *boolean*
+If *true*, the `config.yml` will be overwritten with the default settings. If *false*, settings are preserved.
+
+> Note: This field is normally only *true* in the time between the user has selected `use_defaults` in the settings menu and the time at which YT Download is relaunched by the user.
 
 ![themes](https://user-images.githubusercontent.com/60891047/231323710-094b9efd-9f88-490d-b172-4e42cc56dd1b.png)
 
 For an interactive version of this image follow the steps bellow.  
 
-- Make sure Python is installed then run: `pip install PySimpleGUI` in a terminal window.  
+- Make sure Python is installed then run: `pip install FreeSimpleGUI` in a terminal window.  
 - Start up Python by typing the command `python` (or `python3` for linux users).
 - Paste the bellow code:  
 ```python
-import PySimpleGUI
+import FreeSimpleGUI
 
-PySimpleGUI.theme_previewer()
+FreeSimpleGUI.theme_previewer()
 ```
 ### Making Changes
 After you are finished editing the config file, simply save the file and restart YT Download for the changes to come into effect.
@@ -379,7 +394,7 @@ Dependencies:
 
 YT-DLP: https://github.com/yt-dlp/yt-dlp
 
-
+FreeSimpleGUI: https://github.com/spyoungtech/FreeSimpleGUI
 
 FFmpeg: https://ffmpeg.org/
 

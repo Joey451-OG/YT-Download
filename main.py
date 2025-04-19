@@ -183,9 +183,6 @@ def youtubeDownloader(settings: dict, url: str):
     with YoutubeDL(settings) as ydl:
         try:
             clean_url = linkCleaner(url)
-
-            # Print Debugging information.
-            terminal_msgs(1, 1); print(" " + clean_url)
             
             ydl.download(clean_url)
         except utils.DownloadError:
@@ -193,11 +190,10 @@ def youtubeDownloader(settings: dict, url: str):
 
 # Main logic. Sets directory and calls youtubeDownloader()
 def logic(URL: str, ISaudio: bool, DIR: str):
-    terminal_msgs(0, 3)
     audio_options['outtmpl'] = DIR + '/%(title)s.%(ext)s'
     video_options['outtmpl'] = DIR + '/%(title)s.%(ext)s'                
     
-    terminal_msgs(0, 4)
+    terminal_msgs(1, 5)
     if ISaudio: # Download as audio or video
         return youtubeDownloader(audio_options, URL)
     else:
@@ -207,6 +203,7 @@ def logic(URL: str, ISaudio: bool, DIR: str):
 def return_title(url: str):
     with YoutubeDL() as ydl:
         try:
+            url = linkCleaner(url)
             info = ydl.extract_info(url, download=False)
             return info['title']
         except utils.DownloadError: # Invalid YouTube url error.
@@ -225,9 +222,10 @@ def terminal_msgs(dic: int, key: int):
     better_looking = {
         0: "[YT DOWNLOAD] ", # Generic Tag
         1: "\n\n[YT DOWNLOAD] Please feel free to minimize this debug window\n\n",
-        2: "\n[YT DOWNLOAD] Detecting Operating System...",
-        3: "\n[YT DOWNLOAD] Initializing application window...",
-        4: "\n[YT DOWNLOAD] Attempting to download :"
+        2: "[YT DOWNLOAD] Detecting Operating System...",
+        3: "[YT DOWNLOAD] Initializing application window...",
+        4: "[YT DOWNLOAD] Selecting directory...",
+        5: "[YT DOWNLOAD] Attempting to download",
     }
 
     match dic:
