@@ -1,4 +1,4 @@
-version: 1.4.0
+version: 1.5.0
 Directory_Settings:
   use_default_directory: true
   custom_default_directory: ''
@@ -8,3 +8,4 @@ Popup_Settings:
 Miscellaneous_Settings:
   default_as_audio: false
   color_theme: DarkAmber
+  use_defaults: false

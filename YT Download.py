@@ -17,17 +17,17 @@ YT Download. A simple GUI wrapper for yt-dlp.
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '''
 
-import PySimpleGUI as sg
+import FreeSimpleGUI as sg
 import main as downloader
 import webbrowser as web
 from sys import platform
 
 cfg = downloader.config()
-downloader.terminal_msgs(0, 0)
+downloader.terminal_msgs(1, 1)
 sg.theme(cfg.color_theme) # Color Scheme
 
 # OS based default directory lookup
-downloader.terminal_msgs(0, 1)
+downloader.terminal_msgs(1, 2)
 if cfg.use_default_directory or (not cfg.use_default_directory and cfg.custom_default_directory == ''):
     if platform == 'win32':
         user_dir = cfg.check_for_OneDrive()
@@ -106,7 +106,7 @@ def GUI_checks(audio_val: str, url_val: str, dir_val: str):
                 yt_download = downloader.logic(url_val, audio_val, dir_val)
 
                 if yt_download == 'FFMPEG ERROR': # Check for a FFMPEG error
-                    sg.popup('It looks like FFmpeg is not installed. Try reinstalling YT Download or add FFmpeg to the PATH manually.', icon=logo, title='YT Download')
+                    sg.popup('It looks like FFmpeg is not installed. Try reinstalling FFmpeg or checking if it has been added to the PATH correctly.', icon=logo, title='YT Download')
                 elif cfg.file_downloaded: # Downloaded confirmation popup
                     sg.popup(f'Downloaded {title} as a {file_type} file to {dir_val}', icon=logo, title='YT Download')
             
@@ -130,9 +130,14 @@ def settings_menu():
             if not cfg.use_default_directory and s_value[2] == '':
                 setting_list[1] = cfg.custom_default_directory
             
-            # Send data to main.py for writing to config file
-            cfg.update_config_file(setting_list)
-            cfg.update_class_vars()
+            # Check if user wants to revert to default settings
+            if not setting_list[6]:
+                # Send data to main.py for writing to config file
+                cfg.update_config_file(setting_list)
+            else:
+                # Update config file with default settings
+                cfg.apply_default_settings()
+                
 
             # Restart YT Download
             settings_window.close()
@@ -141,7 +146,7 @@ def settings_menu():
             
 
 # Main setup loop. Calls GUI_checks()
-downloader.terminal_msgs(0, 2)
+downloader.terminal_msgs(1, 3)
 window = sg.Window('YT Download', layout, icon=logo)
 while True:
     
@@ -165,6 +170,7 @@ while True:
         [sg.Text('Miscellaneous Settings'), sg.HorizontalSeparator(pad=(10, 5))],
         [sg.Checkbox('Download as .mp3 by default', default=cfg.default_as_audio)],
         [sg.Text('Color Theme:'), sg.Combo(sg.theme_list(), default_value=cfg.color_theme)],
+        [sg.Checkbox('Revert to default settings?', default=cfg.use_defaults, tooltip='If checked, YT Download will revert to default settings.')],
         [sg.Push(), sg.Text('~' * 15), sg.Push()],
         [sg.Button('Apply', tooltip='YT Download will shutdown in order to apply your changes'), sg.Push(), sg.Button('Exit', tooltip='Exiting will not save any changes')]
 
