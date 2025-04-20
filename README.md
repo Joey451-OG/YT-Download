@@ -37,12 +37,15 @@ A GUI based YouTube downloader made with [yt-dlp](https://www.github.com/yt-dlp/
 
 ## Change Log
 ### **Version 1.5.0**
-- ➕ Added the ability to automatically clean `si=` tracker from YouTube share links.
+- ➕ Added the ability to automatically clean the `si=` tracker from YouTube share links.
 - ➕ Added the ability to revert to default settings.
-- ➕ Added FFmpeg to the `.msi` installer's dependencies
-- ➖ Removed prepacked FFmpeg from `.msi` installer. Now FFmpeg is installed as a dependency.
+- ➖ Removed prepacked FFmpeg from `.msi` installer. Now FFmpeg must be installed by the user.
 - 🐛 Fixed a bug that caused the config file updater to only check for new setting categories instead of new settings in each category.
-- 🐛 Uploaded `yt-dlp` that is packed with YT Download.
+- 🐛 Updated `yt-dlp` packaged with YT Download.
+
+**NOTE:** Starting with this version, YT Download will no longer include FFmpeg in the `.msi` installer. Windows users must install FFmpeg manually alongside YT Download. You can install FFmpeg from their official website at: [https://ffmpeg.org/](https://ffmpeg.org/).
+
+Special thanks to *@withered_emerald* on Discord for finally giving me the motivation to finish this version.
 
 ### **Version 1.4.2**
 - 🐛 Updated `yt-dlp` library packaged with YT Download. This will fix the `[download] Got error: HTTP Error 403: Forbidden` that users where experiencing.
